@@ -1,0 +1,58 @@
+body {
+	padding: 20px;
+	color: #000;
+	background: #ABAB9A;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 15px;
+}
+
+
+table, td {
+	background: #3f9296;
+	border: 1px solid #44adb1;
+	color:#333333;
+	border-radius: 5px;
+	text-align: center;
+}
+
+td {
+	padding: 5px;
+}
+
+.none{
+	border: none;
+}
+
+select {
+	background: #ccc;
+	border: none;
+	border-radius: 5px;
+	width: 150px;
+	padding: 5px;
+	font-size: 15px;
+}
+
+.submit {
+	background: #ccc;
+	border: 1px solid #44adb1;
+	border-radius: 5px;
+	width: 220px;
+	padding: 5px;
+	font-size: 15px;
+}
+
+.submit:hover {
+	background: #3f9296;
+	border: 1px solid #44adb1;
+	color: #ccc;
+}
+
+a {
+	color: #ccc;
+	text-decoration: none;
+}
+
+a:hover:first-child {
+	color: #333333;
+	text-decoration: none;
+}
