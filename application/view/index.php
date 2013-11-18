@@ -1,7 +1,6 @@
 <?php $data =  $this->viewData ?>
 
 <!DOCTYPE html>
-<!--suppress ALL -->
 <html>
 <head>
 	<title>Top 10 Weather Data</title>
@@ -38,14 +37,14 @@
 </table>
 
 <?
-if ($data['selectedUnit'] == 'units=metric') {
-			$formatTemp = 'C';
-			$formatWind = 'm/s';
-		} else {
-			$formatTemp = 'F';
-			$formatWind = 'mph';
-		}
-?>
+	if ($data['selectedUnit'] == 'units=metric') {
+				$formatTemp = 'C';
+				$formatWind = 'm/s';
+			} else {
+				$formatTemp = 'F';
+				$formatWind = 'mph';
+			}
+	?>
 
 <table><tr><td colspan="2"><?= date('d/m/y @ H:m') ?></td></tr>
 <tr><td>Sunrise:</td><td><?= date('H:m', $data['result']->sys->sunrise) ?></td></tr>
@@ -70,7 +69,7 @@ if ($data['selectedUnit'] == 'units=metric') {
 <tr><td>Wind:</td><td><?= number_format($data['result']->wind->speed, 1) . ' ' . $formatWind ?></td></tr></table><br>
 </div>
 
-<? print_r("Speed: " . number_format($data['result']->time, 3)); ?>
+<? //print_r("Speed: " . number_format($data['result']->time, 3)); ?>
 
 </body>
 

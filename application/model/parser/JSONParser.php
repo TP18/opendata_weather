@@ -94,15 +94,6 @@ class JSONParser
 		return $url;
 	}
 
-	public function getTime()
-	{
-$time_start = microtime(true);
-	file_get_contents($this->getUrl($this->city, $this->unit));
-$time_end = microtime(true);
-$time = $time_end - $time_start;
-print_r("Speed: " . number_format($time, 5));
-		$this->time = $time;
-	}
 	/**
 	 * @return    Array
 	 */
@@ -122,21 +113,32 @@ print_r("Speed: " . number_format($time, 5));
 		return $this->cities;
 	}
 
-	public function getUnitOptions()
-	{
-		return $this->units;
-	}
-
 	public function getSelectedCity()
 	{
 		//$selectVal = $this->city;
 		return $this->city;
 	}
 
+	public function getUnitOptions()
+	{
+		return $this->units;
+	}
+
+
 	public function getSelectedUnit()
 	{
 		//$selectVal = $this->city;
 		return $this->unit;
+	}
+
+	public function getTime()
+	{
+$time_start = microtime(true);
+	file_get_contents($this->getUrl($this->city, $this->unit));
+$time_end = microtime(true);
+$time = $time_end - $time_start;
+print_r("Speed: " . number_format($time, 5));
+		$this->time = $time;
 	}
 
 	/**

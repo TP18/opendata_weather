@@ -2,12 +2,30 @@
 <?php
 
 /**
- * Error Handling / time /
+ * Error Handling php file_gets_content / time array /  Error handlinghttp://p2511-141-opendata.thpe.rz.snowflake.ch/index.php?controller=index&action=index
  */
 
 require_once 'application/config/global.php';
 
-$parameters = array_merge($_GET, $_POST); //array_merge $_post
+	$parameters = array_merge($_GET, $_POST); //array_merge $_post
+
+	$pattern = '/^[A-ZÄÖÜ0-9,]+$/i';
+	$validAction = preg_match($pattern, $parameters['city']);
+	if ($validAction == true) {
+		$parameters['city'] = $parameters['city'];
+	} else {
+		$parameters['city'] = "Zurich,ch";
+	}
+
+
+	$pattern = '/^[A-ZÄÖÜ0-9=]+$/i';
+	$validAction = preg_match($pattern, $parameters['units']);
+	if ($validAction == true) {
+		$parameters['units'] = $parameters['units'];
+	} else {
+		$parameters['units'] = "units=metric";
+	}
+
 
 if (empty($parameters['controller'])) {
 	$controller = 'index';
