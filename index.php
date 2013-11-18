@@ -9,21 +9,16 @@ require_once 'application/config/global.php';
 
 	$parameters = array_merge($_GET, $_POST); //array_merge $_post
 
-	$pattern = '/^[A-ZÄÖÜ0-9,]+$/i';
-	$validAction = preg_match($pattern, $parameters['city']);
-	if ($validAction == true) {
-		$parameters['city'] = $parameters['city'];
-	} else {
+	$pattern = '/^[A-Z]+\,[A-Z]{2}$/i';
+	$validCity = preg_match($pattern, $parameters['city']);
+	if ($validCity == false) {
 		$parameters['city'] = "Zurich,ch";
 	}
 
-
-	$pattern = '/^[A-ZÄÖÜ0-9=]+$/i';
-	$validAction = preg_match($pattern, $parameters['units']);
-	if ($validAction == true) {
-		$parameters['units'] = $parameters['units'];
-	} else {
-		$parameters['units'] = "units=metric";
+	$pattern = '/^(imperial|metric)$/i';
+	$validUnits = preg_match($pattern, $parameters['units']);
+	if ($validUnits == false) {
+		$parameters['units'] = "metric";
 	}
 
 

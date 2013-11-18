@@ -53,8 +53,8 @@ class JSONParser
 	);
 
 	private $units = array(
-			"units=metric" => "Metric",
-			"units=imperial" => "Imperial",
+			"metric" => "Metric",
+			"imperial" => "Imperial",
 		);
 
 	private $city;
@@ -85,7 +85,7 @@ class JSONParser
 
 	if (isset($city) && isset($unit)) {
 		$url = 'http://api.openweathermap.org/data/2.5/weather?q=';
-		$url .= $city . '&';
+		$url .= $city . '&units=';
 		$url .= $unit;
 	} else {
 		$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric';

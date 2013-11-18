@@ -37,7 +37,7 @@
 </table>
 
 <?
-	if ($data['selectedUnit'] == 'units=metric') {
+	if ($data['selectedUnit'] == 'metric') {
 				$formatTemp = 'C';
 				$formatWind = 'm/s';
 			} else {
