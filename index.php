@@ -9,64 +9,52 @@ require_once 'application/config/global.php';
 
 	$parameters = array_merge($_GET, $_POST);
 
-	$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
-	$validCity = preg_match($pattern, $parameters['city']);
-	if ($validCity == false) {
-		$parameters['city'] = "Zurich,ch";
+	$validControllers = array(
+	'index',
+	'test',
+	);
+
+	if (empty($parameters['controller'])) {
+		$parameters['controller'] = 'index';
 	}
 
-	$pattern = '/^(imperial|metric)$/i';
-	$validUnits = preg_match($pattern, $parameters['units']);
-	if ($validUnits == false) {
-		$parameters['units'] = "metric";
+	$controller = 'index';
+	if (in_array($parameters['controller'], $validControllers)) {
+		$controller = $parameters['controller'];
 	}
 
-$validControllers = array(
-'index',
-'test',
-);
-
-if (empty($parameters['controller'])) {
-	$parameters['controller'] = 'index';
-}
-
-$controller = 'index';
-if (in_array($parameters['controller'], $validControllers)) {
-	$controller = $parameters['controller'];
-}
-
-try {
-	if (!in_array($parameters['controller'], $validControllers)) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
-		$error = 'Not a valid controller';
-		throw new Exception($error);
+	try {
+		if (!in_array($parameters['controller'], $validControllers)) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
+			$error = 'Not a valid controller';
+			throw new Exception($error);
+		}
+	} catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 	}
-} catch (Exception $e) {
-	echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
-}
 
 
-$validActions = array(
-'index',
-'test',
-);
+	$validActions = array(
+	'index',
+	'test',
+	);
 
-if (empty($parameters['action'])) {
-	$parameters['action'] = 'index';
-}
-
-$action = 'index';
-if (in_array($parameters['action'], $validActions)) {
-	$action = $parameters['action'];
-}
-
-try {
-	if (!in_array($parameters['action'], $validActions)) {
-		$error = 'Not a valid action';
-		throw new Exception($error);
+	if (empty($parameters['action'])) {
+		$parameters['action'] = 'index';
 	}
-} catch (Exception $e) {
-	echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
-}
+
+	$action = 'index';
+	if (in_array($parameters['action'], $validActions)) {
+		$action = $parameters['action'];
+	}
+
+	try {
+		if (!in_array($parameters['action'], $validActions)) {
+			$error = 'Not a valid action';
+			throw new Exception($error);
+		}
+	} catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
+	}
 
 $controllerClassName = ucfirst($controller) . 'Controller'; //indexController
 

@@ -67,16 +67,18 @@ class JSONParser
 
 	public function __construct($city, $unit)
 	{
-		if (empty($city)) {
-			$this->city = 'Zurich,ch';
-		} else {
-			$this->city = $city;
+		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
+		$validCity = preg_match($pattern, $city);
+		$this->city = $city;
+		if ($validCity == false) {
+			$this->city = "Zurich,ch";
 		}
 
-		if (empty($unit)) {
-			$this->unit = 'metric';
-		} else {
-			$this->unit = $unit;
+		$pattern = '/^(imperial|metric)$/i';
+		$validUnits = preg_match($pattern, $unit);
+		$this->unit = $unit;
+		if ($validUnits == false) {
+			$this->unit = "metric";
 		}
 	}
 
@@ -111,7 +113,6 @@ class JSONParser
 	} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 	}
-
 		return $result;
 	}
 
