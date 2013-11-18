@@ -2,23 +2,34 @@
 <?php
 
 /**
- * Error Handling php file_gets_content / time array /  Error handlinghttp://p2511-141-opendata.thpe.rz.snowflake.ch/index.php?controller=index&action=index
+ * time array /  http://p2511-141-opendata.thpe.rz.snowflake.ch/index.php?controller=blabla&action=index1
  */
 
 require_once 'application/config/global.php';
 
 	$parameters = array_merge($_GET, $_POST);
+	$controller = 'index';
+	$action = 'index';
+
+$controllerClassName = ucfirst($controller) . 'Controller'; //indexController
+
+$controllerClass = new $controllerClassName($parameters);
+
+$controllerAction = $action . 'Action'; //indexController
+
+$controllerClass->$controllerAction();
+/**
 
 	$validControllers = array(
 	'index',
 	'test',
 	);
 
+	$controller = 'index';
 	if (empty($parameters['controller'])) {
 		$parameters['controller'] = 'index';
 	}
 
-	$controller = 'index';
 	if (in_array($parameters['controller'], $validControllers)) {
 		$controller = $parameters['controller'];
 	}
@@ -38,11 +49,11 @@ require_once 'application/config/global.php';
 	'test',
 	);
 
+	$action = 'index';
 	if (empty($parameters['action'])) {
 		$parameters['action'] = 'index';
 	}
 
-	$action = 'index';
 	if (in_array($parameters['action'], $validActions)) {
 		$action = $parameters['action'];
 	}
@@ -56,16 +67,7 @@ require_once 'application/config/global.php';
 		echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 	}
 
-$controllerClassName = ucfirst($controller) . 'Controller'; //indexController
 
-$controllerClass = new $controllerClassName($parameters);
-
-$controllerAction = $action . 'Action'; //indexController
-
-$controllerClass->$controllerAction();
-
-
-/**
 $test = new JSONParser();
 
 echo $test->selecter();

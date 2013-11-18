@@ -11,7 +11,7 @@
 <? $selfUrl = $_SERVER['PHP_SELF'];?>
 <table class="styled-select">
 	<form action="<?php echo $selfUrl; ?>" method="POST">
-																			<!--<form action="<?php echo $selfUrl; ?>" method="POST">-->
+																			<!--<form action="/index.php" method="POST">-->
 	<tr><td><label for="city">Select city: </label>
 		<select name="city" id="city">
 			<?php $selectVal = $data['selectedCity'];
