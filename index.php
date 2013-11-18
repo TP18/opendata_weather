@@ -7,9 +7,9 @@
 
 require_once 'application/config/global.php';
 
-	$parameters = array_merge($_GET, $_POST); //array_merge $_post
+	$parameters = array_merge($_GET, $_POST);
 
-	$pattern = '/^[A-Z]+\,[A-Z]{2}$/i';
+	$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
 	$validCity = preg_match($pattern, $parameters['city']);
 	if ($validCity == false) {
 		$parameters['city'] = "Zurich,ch";
@@ -21,17 +21,51 @@ require_once 'application/config/global.php';
 		$parameters['units'] = "metric";
 	}
 
+$validControllers = array(
+'index',
+'test',
+);
 
 if (empty($parameters['controller'])) {
-	$controller = 'index';
-} else {
+	$parameters['controller'] = 'index';
+}
+
+$controller = 'index';
+if (in_array($parameters['controller'], $validControllers)) {
 	$controller = $parameters['controller'];
 }
 
+try {
+	if (!in_array($parameters['controller'], $validControllers)) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
+		$error = 'Not a valid controller';
+		throw new Exception($error);
+	}
+} catch (Exception $e) {
+	echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
+}
+
+
+$validActions = array(
+'index',
+'test',
+);
+
 if (empty($parameters['action'])) {
-	$action = 'index';
-} else {
+	$parameters['action'] = 'index';
+}
+
+$action = 'index';
+if (in_array($parameters['action'], $validActions)) {
 	$action = $parameters['action'];
+}
+
+try {
+	if (!in_array($parameters['action'], $validActions)) {
+		$error = 'Not a valid action';
+		throw new Exception($error);
+	}
+} catch (Exception $e) {
+	echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 }
 
 $controllerClassName = ucfirst($controller) . 'Controller'; //indexController

@@ -100,10 +100,17 @@ class JSONParser
 	public function readJSONFile()
 	{
 		$content = file_get_contents($this->getUrl($this->city, $this->unit));
-		$content = utf8_encode($content);
 		$result = json_decode($content);
 		$this->result = $result;
 
+	try {
+			if ($content == false) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
+				$error = 'Not a valid URL';
+				throw new Exception($error);
+			}
+	} catch (Exception $e) {
+			echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
+	}
 
 		return $result;
 	}
