@@ -36,7 +36,6 @@
  * @subpackage    tx_YOUREXT
  */
 
-
 class JSONParser
 {
 	private $cities = array(
@@ -57,59 +56,63 @@ class JSONParser
 			"imperial" => "Imperial",
 		);
 
-	private $city_ = '';
+	private $city = 'Zurich,ch';
 
-	private $unit_ = '';
+	private $unit = 'metric';
 
 	private $result;
 
-	private $time;
+	public $time;
 
-	public function __construct($city = '$city2', $unit = '$unit2')
+	public function __construct($city = 'Zurich,ch', $unit = 'metric')
 	{
-		$this->city_ = $city;
-		if ($this->isValidCity($city) == false) {
-			$this->city_ = "Zurich,ch";
-		}
-
-		$this->unit_ = $unit;
-		if ($this->isValidUnit($unit) == false) {
-			$this->unit_ = "metric";
-		}
+		$this->setValidCity($city);
+		$this->setValidUnit($unit);
 	}
 
 	protected function isValidCity ($city)
 	{
 		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
-		$validCity = preg_match($pattern, $city);
-		if ($validCity == false) {
-			return false;
-		}
-		return true;
+		return $validCity = preg_match($pattern, $city);
 	}
 
 	protected function isValidUnit ($unit)
 	{
 		$pattern = '/^(imperial|metric)$/i';
-		$validUnits = preg_match($pattern, $unit);
-		if ($validUnits == false) {
-			return false;
-		}
-		return true;
+		return $validUnits = preg_match($pattern, $unit);
 	}
 
+	/**
+	 * @param $city
+	 */
+	public function setValidCity($city)
+	{
+		if ($this->isValidCity($city) == true) {
+			$this->city = $city;
+		}
+	}
+
+	/**
+	 * @param $unit
+	 */
+	public function setValidUnit($unit)
+	{
+		if ($this->isValidUnit($unit) == true) {
+			$this->unit = $unit;
+		}
+	}
 
 	private function getUrl($city, $unit)
 	{
+		if (isset($city) && isset($unit)) {
+			$url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+			$url .= $city . '&units=';
+			$url .= $unit;
+		} else {
+			$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric';
+			//?city=Munich,de&units=imperials
+		}
 
-	if (isset($city) && isset($unit)) {
-		$url = 'http://api.openweathermap.org/data/2.5/weather?q=';
-		$url .= $city . '&units=';
-		$url .= $unit;
-	} else {
-		$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric';
-		//?city=Munich,de&units=imperials
-	}
 		return $url;
 	}
 
@@ -118,18 +121,17 @@ class JSONParser
 	 */
 	public function readJSONFile()
 	{
-		$content = file_get_contents($this->getUrl($this->city_, $this->unit_));
+		$content = file_get_contents($this->getUrl($this->city, $this->unit));
+			try {
+				if ($content == false) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
+					$error = 'Not a valid URL';
+					throw new Exception($error);
+				}
+			} catch (Exception $e) {
+					echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
+			}
 		$result = json_decode($content);
 		$this->result = $result;
-
-	try {
-			if ($content == false) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
-				$error = 'Not a valid URL';
-				throw new Exception($error);
-			}
-	} catch (Exception $e) {
-			echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
-	}
 		return $result;
 	}
 
@@ -140,7 +142,7 @@ class JSONParser
 
 	public function getSelectedCity()
 	{
-		return $this->city_;
+		return $this->city;
 	}
 
 	public function getUnitOptions()
@@ -148,20 +150,20 @@ class JSONParser
 		return $this->units;
 	}
 
-
 	public function getSelectedUnit()
 	{
-		return $this->unit_;
+		return $this->unit;
 	}
 
 	public function getTime()
 	{
-$time_start = microtime(true);
-	file_get_contents($this->getUrl($this->city_, $this->unit_));
-$time_end = microtime(true);
-$time = $time_end - $time_start;
-print_r('API Speed: ' . number_format($time, 3) . 's');
+		$time_start = microtime(true);
+		file_get_contents($this->getUrl($this->city, $this->unit));
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		//print_r('API Speed: ' . number_format($time, 3) . 's');
 		$this->time = $time;
+		return $this->time;
 	}
 
 	/**

@@ -36,27 +36,41 @@
  * @package	TYPO3
  * @subpackage	tx_YOUREXT
  */
+
 class IndexController
 {
 	private $parameters;
 
 	public $viewData;
 
-	public $Exe;
+	public $exe;
 
-	public function __construct($paramters)
+	public function __construct($parameters)
 	{
-		$this->parameters = $paramters;
+
+		$this->parameters = $parameters;
+
 	}
 
 	public function indexAction()
 	{
+/******************************************************************* muss noch angeschaut werden
+		foreach ($this->parameters as $parameterValue) {
+			var_dump($parameterValue);
+				$search = '.';
+				$replace = ',';
+				str_replace($search, $replace, $parameterValue);
+				strip_tags($parameterValue); //strips all tags
+				htmlentities($parameterValue, ENT_QUOTES);
+				iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $parameterValue);
+		}
+ **/
 		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units']);
 		$jsonData = $jsonParser->readJSONFile();
 
-		/**$valid = new Exceptions($this->parameters['controller'], $this->parameters['action']);*/
+		/**$valid = */ new Exceptions($this->parameters['controller'], $this->parameters['action']);
 
-		$this->Exe = array(
+		$this->exe = array(
 					/**'validController' => $valid->validController(),
 					'validAction' => $valid->validAction()*/
 				);

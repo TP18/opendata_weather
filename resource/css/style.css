@@ -16,7 +16,7 @@ table, td {
 }
 
 td {
-	padding: 5px;
+	padding: 5px 15px 5px 15px;
 }
 
 .none{
@@ -36,7 +36,7 @@ select {
 	background: #ccc;
 	border: 1px solid #44adb1;
 	border-radius: 5px;
-	width: 240px;
+	width: 300px;
 	padding: 5px;
 	font-size: 15px;
 }
