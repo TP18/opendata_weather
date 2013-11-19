@@ -43,8 +43,8 @@ class JSONParser
 		"Zurich,ch" => "Zurich",
 		"Johannesburg,za" => "Johannesburg",
 		"Cape,za" => "Cape Town",
+		"Maputo,mz" => "Maputo",
 		"London,uk" => "London",
-		"Munich,de" => "Munich",
 		"Stockholm,se" => "Stockholm",
 		"Ottawa,ca" => "Ottawa",
 		"ny,us" => "New York",
@@ -57,9 +57,9 @@ class JSONParser
 			"imperial" => "Imperial",
 		);
 
-	private $city;
+	private $city = '';
 
-	private $unit;
+	private $unit = '';
 
 	private $result;
 
@@ -67,20 +67,37 @@ class JSONParser
 
 	public function __construct($city, $unit)
 	{
-		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
-		$validCity = preg_match($pattern, $city);
 		$this->city = $city;
-		if ($validCity == false) {
+		if ($this->isValidCity($city) == false) {
 			$this->city = "Zurich,ch";
 		}
 
-		$pattern = '/^(imperial|metric)$/i';
-		$validUnits = preg_match($pattern, $unit);
 		$this->unit = $unit;
-		if ($validUnits == false) {
+		if ($this->isValidUnit($unit) == false) {
 			$this->unit = "metric";
 		}
 	}
+
+	protected function isValidCity ($city)
+	{
+		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
+		$validCity = preg_match($pattern, $city);
+		if ($validCity == false) {
+			return false;
+		}
+		return true;
+	}
+
+	protected function isValidUnit ($unit)
+	{
+		$pattern = '/^(imperial|metric)$/i';
+		$validUnits = preg_match($pattern, $unit);
+		if ($validUnits == false) {
+			return false;
+		}
+		return true;
+	}
+
 
 	private function getUrl($city, $unit)
 	{
@@ -91,7 +108,7 @@ class JSONParser
 		$url .= $unit;
 	} else {
 		$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric';
-		//http://p2511-141-opendata.thpe.rz.snowflake.ch/test.php?city=munich,de&units=metric
+		//?city=Munich,de&units=imperials
 	}
 		return $url;
 	}
@@ -123,7 +140,6 @@ class JSONParser
 
 	public function getSelectedCity()
 	{
-		//$selectVal = $this->city;
 		return $this->city;
 	}
 
@@ -145,7 +161,7 @@ $time_start = microtime(true);
 	file_get_contents($this->getUrl($this->city, $this->unit));
 $time_end = microtime(true);
 $time = $time_end - $time_start;
-print_r("Speed: " . number_format($time, 5));
+print_r('API Speed: ' . number_format($time, 3) . 's');
 		$this->time = $time;
 	}
 
