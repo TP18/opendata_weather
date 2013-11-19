@@ -36,19 +36,25 @@
  */
 class Exceptions extends Exception
 {
-	private $controller;
+	private $controller = 'index';
 	private $controllers = array(
 		'index',
 		'test',
 		);
 
-	private $action;
+	private $action = 'index';
 	private $actions = array(
 	'index',
 	'test',
 	);
 
-	public function __construct($controller, $action)
+	public function __construct($controller = 'index', $action = 'index')
+	{
+		$this->validController($controller);
+		$this->validAction($action);
+	}
+
+	public function validController($controller)
 	{
 		//controller
 		if (empty($controller)) {
@@ -67,8 +73,10 @@ class Exceptions extends Exception
 		} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 		}
+	}
 
-
+	public function validAction($action)
+	{
 		//action
 		if (empty($action)) {
 			$action = 'index';

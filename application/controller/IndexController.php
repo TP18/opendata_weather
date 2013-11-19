@@ -43,13 +43,11 @@ class IndexController
 
 	public $viewData;
 
-	public $exe;
+	//public $exe;
 
 	public function __construct($parameters)
 	{
-
 		$this->parameters = $parameters;
-
 	}
 
 	public function indexAction()
@@ -68,12 +66,12 @@ class IndexController
 		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units']);
 		$jsonData = $jsonParser->readJSONFile();
 
-		/**$valid = */ new Exceptions($this->parameters['controller'], $this->parameters['action']);
+		new Exceptions($this->parameters['controller'], $this->parameters['action']);
 
-		$this->exe = array(
-					/**'validController' => $valid->validController(),
-					'validAction' => $valid->validAction()*/
-				);
+		/**$this->exe = array(
+					'validController' => $validPara->validController($this->parameters),
+					'validAction' => $validPara->validAction($this->parameters)
+				);*/
 
 		$this->viewData = array(
 			'h1' => 'Top 10 Weather Data',
