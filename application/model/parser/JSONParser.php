@@ -57,24 +57,24 @@ class JSONParser
 			"imperial" => "Imperial",
 		);
 
-	private $city = '';
+	private $city_ = '';
 
-	private $unit = '';
+	private $unit_ = '';
 
 	private $result;
 
 	private $time;
 
-	public function __construct($city, $unit)
+	public function __construct($city = '$city2', $unit = '$unit2')
 	{
-		$this->city = $city;
+		$this->city_ = $city;
 		if ($this->isValidCity($city) == false) {
-			$this->city = "Zurich,ch";
+			$this->city_ = "Zurich,ch";
 		}
 
-		$this->unit = $unit;
+		$this->unit_ = $unit;
 		if ($this->isValidUnit($unit) == false) {
-			$this->unit = "metric";
+			$this->unit_ = "metric";
 		}
 	}
 
@@ -118,7 +118,7 @@ class JSONParser
 	 */
 	public function readJSONFile()
 	{
-		$content = file_get_contents($this->getUrl($this->city, $this->unit));
+		$content = file_get_contents($this->getUrl($this->city_, $this->unit_));
 		$result = json_decode($content);
 		$this->result = $result;
 
@@ -140,7 +140,7 @@ class JSONParser
 
 	public function getSelectedCity()
 	{
-		return $this->city;
+		return $this->city_;
 	}
 
 	public function getUnitOptions()
@@ -151,14 +151,13 @@ class JSONParser
 
 	public function getSelectedUnit()
 	{
-		//$selectVal = $this->city;
-		return $this->unit;
+		return $this->unit_;
 	}
 
 	public function getTime()
 	{
 $time_start = microtime(true);
-	file_get_contents($this->getUrl($this->city, $this->unit));
+	file_get_contents($this->getUrl($this->city_, $this->unit_));
 $time_end = microtime(true);
 $time = $time_end - $time_start;
 print_r('API Speed: ' . number_format($time, 3) . 's');

@@ -54,7 +54,7 @@ class IndexController
 		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units']);
 		$jsonData = $jsonParser->readJSONFile();
 
-		/**$valid = */new Exceptions($this->parameters['controller'], $this->parameters['action']);
+		/**$valid = new Exceptions($this->parameters['controller'], $this->parameters['action']);*/
 
 		$this->Exe = array(
 					/**'validController' => $valid->validController(),
