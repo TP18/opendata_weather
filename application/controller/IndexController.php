@@ -58,11 +58,12 @@ class IndexController
 				$search = '.';
 				$replace = ',';
 				str_replace($search, $replace, $parameterValue);
-				strip_tags($parameterValue); //strips all tags
-				htmlentities($parameterValue, ENT_QUOTES);
-				iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $parameterValue);
 		}
  **/
+		strip_tags($this->parameters['city']); //strips all tags
+		htmlentities($this->parameters['city'], ENT_QUOTES);
+		iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $this->parameters['city']);
+
 		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units']);
 		$jsonData = $jsonParser->readJSONFile();
 

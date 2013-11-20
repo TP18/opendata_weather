@@ -6,6 +6,9 @@ body {
 	font-size: 15px;
 }
 
+table {
+	min-width: 350px;
+}
 
 table, td {
 	background: #3f9296;
@@ -55,4 +58,9 @@ a {
 a:hover:first-child {
 	color: #333333;
 	text-decoration: none;
+}
+
+#info{
+	font-size: 13px;
+	color: #333333;
 }

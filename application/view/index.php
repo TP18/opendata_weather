@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script type="text/javascript" src="../../lib/jquery/jquery-1.10.2.min.js"></script>
 	<title>Top 10 Weather Data</title>
 </head>
 <body>
 <?= "API Speed: " . number_format($data['time'], 3) . 's'; ?>
 <h1><?= $data['h1'] ?></h1>
-
 <div class="content">
 	<? $selfUrl = $_SERVER['PHP_SELF']; ?>
 	<form action="<?php echo $selfUrl; ?>" method="POST">
@@ -45,7 +45,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Submit" class="submit"></td>
+				<td colspan="2">
+					<input type="submit" value="Submit" class="submit">
+				</td>
+
 			</tr>
 		</table>
 	</form>
@@ -123,6 +126,24 @@
 		</tr>
 	</table>
 	<br>
+
+<table>
+	<tr>
+		<td>
+			<img href="#info" src="../../resource/images/info.PNG" onclick="$('#info').toggle()" />
+			<div id="info" style="display:none">
+			Additional you can enter this after the url<br><br>
+			A city has to be a valid city [cityname,country codes]<br>
+			Units have to be enter as followed [metric] or [imperial]<br><br>
+
+			For example:<br>
+			<a href="?city=paris,fr&unit=metric">?city=paris,fr&unit=metric</a><br>
+			<a href="?city=berlin,de&units=imperial">?city=berlin,de&units=imperial</a>
+			</div>
+		</td>
+	</tr>
+</table>
+
 </div>
 
 </body>
