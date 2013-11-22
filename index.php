@@ -6,7 +6,6 @@
  */
 
 require_once 'application/config/global.php';
-
 	$parameters = array_merge($_GET, $_POST);
 	$controller = 'index';
 	$action = 'index';
