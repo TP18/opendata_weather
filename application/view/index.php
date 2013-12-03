@@ -48,7 +48,6 @@
 				<td colspan="2">
 					<input type="submit" value="Submit" class="submit">
 				</td>
-
 			</tr>
 		</table>
 	</form>
