@@ -121,7 +121,9 @@ class JSONParser
 	 */
 	public function readJSONFile()
 	{
+		$time_start = microtime(true);
 		$content = file_get_contents($this->getUrl($this->city, $this->unit));
+		$time_end = microtime(true);
 			try {
 				if ($content == false) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
 					$error = 'Not a valid URL';
@@ -131,6 +133,11 @@ class JSONParser
 					echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
 			}
 		$result = json_decode($content);
+
+		$time = $time_end - $time_start;
+		print_r('API Speed: ' . number_format($time, 3) . 's');
+		$this->time = $time;
+
 		$this->result = $result;
 		return $result;
 	}
@@ -157,12 +164,6 @@ class JSONParser
 
 	public function getTime()
 	{
-		$time_start = microtime(true);
-		file_get_contents($this->getUrl($this->city, $this->unit));
-		$time_end = microtime(true);
-		$time = $time_end - $time_start;
-		//print_r('API Speed: ' . number_format($time, 3) . 's');
-		$this->time = $time;
 		return $this->time;
 	}
 
