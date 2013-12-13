@@ -9,6 +9,7 @@
 <body>
 <?= "API Speed: " . number_format($data['time'], 3) . 's'; ?>
 <h1><?= $data['h1'] ?></h1>
+
 <div class="content">
 	<? $selfUrl = $_SERVER['PHP_SELF']; ?>
 	<form action="<?php echo $selfUrl; ?>" method="POST">
@@ -53,7 +54,7 @@
 	</form>
 
 	<?
-	if($data['selectedUnit'] == 'metric') {
+	if ($data['selectedUnit'] == 'metric') {
 		$formatTemp = 'C';
 		$formatWind = 'm/s';
 	} else {
@@ -126,22 +127,23 @@
 	</table>
 	<br>
 
-<table>
-	<tr>
-		<td>
-			<img href="#info" src="../../resource/images/info.PNG" onclick="$('#info').toggle()" />
-			<div id="info" style="display:none">
-			Additional you can enter this after the url<br><br>
-			A city has to be a valid city [cityname,country codes]<br>
-			Units have to be enter as followed [metric] or [imperial]<br><br>
+	<table>
+		<tr>
+			<td>
+				<a href="#info"><img src="../../resource/images/info.png" onclick="$('#info').toggle()"/></a>
 
-			For example:<br>
-			<a href="?city=paris,fr&unit=metric">?city=paris,fr&unit=metric</a><br>
-			<a href="?city=berlin,de&units=imperial">?city=berlin,de&units=imperial</a>
-			</div>
-		</td>
-	</tr>
-</table>
+				<div id="info" style="display:none">
+					Additional you can enter this after the url<br><br>
+					A city has to be a valid city [cityname,country codes]<br>
+					Units have to be enter as followed [metric] or [imperial]<br><br>
+
+					For example:<br>
+					<a href="?city=paris,fr&unit=metric">?city=paris,fr&unit=metric</a><br>
+					<a href="?city=berlin,de&units=imperial">?city=berlin,de&units=imperial</a>
+				</div>
+			</td>
+		</tr>
+	</table>
 
 </div>
 

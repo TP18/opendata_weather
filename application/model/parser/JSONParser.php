@@ -1,5 +1,4 @@
 <?php
-
 /***************************************************************
  *  Copyright notice
  *
@@ -22,22 +21,17 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- * Hint: use extdeveval to insert/update function index above.
- */
 
 /**
- * Describe class here
  *
- * @author        Thomas Petersen <support@snowflake.ch>
- * @package       TYPO3
- * @subpackage    tx_YOUREXT
+ * @author    Thomas Petersen <support@snowflake.ch>
+ *
  */
 
 class JSONParser
 {
+
+
 	private $cities = array(
 		"Zurich,ch" => "Zurich",
 		"Johannesburg,za" => "Johannesburg",
@@ -51,18 +45,24 @@ class JSONParser
 		"Tokyo,jp" => "Tokyo"
 	);
 
+
 	private $units = array(
-			"metric" => "Metric",
-			"imperial" => "Imperial",
-		);
+		"metric" => "Metric",
+		"imperial" => "Imperial",
+	);
+
 
 	private $city = 'Zurich,ch';
 
+
 	private $unit = 'metric';
+
 
 	private $result;
 
+
 	public $time;
+
 
 	public function __construct($city = 'Zurich,ch', $unit = 'metric')
 	{
@@ -70,17 +70,20 @@ class JSONParser
 		$this->setValidUnit($unit);
 	}
 
-	protected function isValidCity ($city)
+
+	protected function isValidCity($city)
 	{
 		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
 		return $validCity = preg_match($pattern, $city);
 	}
 
-	protected function isValidUnit ($unit)
+
+	protected function isValidUnit($unit)
 	{
 		$pattern = '/^(imperial|metric)$/i';
 		return $validUnits = preg_match($pattern, $unit);
 	}
+
 
 	/**
 	 * @param $city
@@ -92,6 +95,7 @@ class JSONParser
 		}
 	}
 
+
 	/**
 	 * @param $unit
 	 */
@@ -101,6 +105,7 @@ class JSONParser
 			$this->unit = $unit;
 		}
 	}
+
 
 	private function getUrl($city, $unit)
 	{
@@ -116,6 +121,7 @@ class JSONParser
 		return $url;
 	}
 
+
 	/**
 	 * @return    Array
 	 */
@@ -124,14 +130,14 @@ class JSONParser
 		$time_start = microtime(true);
 		$content = file_get_contents($this->getUrl($this->city, $this->unit));
 		$time_end = microtime(true);
-			try {
-				if ($content == false) {// hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
-					$error = 'Not a valid URL';
-					throw new Exception($error);
-				}
-			} catch (Exception $e) {
-					echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
+		try {
+			if ($content == false) { // hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
+				$error = 'Not a valid URL';
+				throw new Exception($error);
 			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '<br><br>';
+		}
 		$result = json_decode($content);
 
 		$time = $time_end - $time_start;
@@ -142,25 +148,30 @@ class JSONParser
 		return $result;
 	}
 
+
 	public function getCityOptions()
 	{
 		return $this->cities;
 	}
+
 
 	public function getSelectedCity()
 	{
 		return $this->city;
 	}
 
+
 	public function getUnitOptions()
 	{
 		return $this->units;
 	}
 
+
 	public function getSelectedUnit()
 	{
 		return $this->unit;
 	}
+
 
 	public function getTime()
 	{
@@ -168,78 +179,78 @@ class JSONParser
 	}
 
 	/**
-	public function selecter()
-	{
-		$citypicker = '<form action="/index.php" method="POST">';
-		$citypicker .= '<label for="city">Select city: </label>';
-		$citypicker .= '<select name="city" id="city">';
-		$citypicker .= $this->getCityOptions();
-		$citypicker .= '</select>';
-		$citypicker .= '	<label for="units">Select unit: </label>';
-		$citypicker .= '	<select name="units" id="units">';
-		$citypicker .= $this->getUnitOptions();
-		$citypicker .= '	</select>';
-		$citypicker .= '	<input type="submit" value="Submit"><br>';
-		$citypicker .= '</form>';
-		return $citypicker;
-	}*/
+	 * public function selecter()
+	 * {
+	 * $citypicker = '<form action="/index.php" method="POST">';
+	 * $citypicker .= '<label for="city">Select city: </label>';
+	 * $citypicker .= '<select name="city" id="city">';
+	 * $citypicker .= $this->getCityOptions();
+	 * $citypicker .= '</select>';
+	 * $citypicker .= '    <label for="units">Select unit: </label>';
+	 * $citypicker .= '    <select name="units" id="units">';
+	 * $citypicker .= $this->getUnitOptions();
+	 * $citypicker .= '    </select>';
+	 * $citypicker .= '    <input type="submit" value="Submit"><br>';
+	 * $citypicker .= '</form>';
+	 * return $citypicker;
+	 * }*/
 
 	/**
 	 * @return    Array
 	 */
 	/**
-	public function getOutput()
-	{
-		if ($_POST['units'] == 'units=metric') {
-			$formatTemp = 'C';
-			$formatWind = 'm/s';
-		} else {
-			$formatTemp = 'F';
-			$formatWind = 'mph';
-		}
-
-		$unit = '<table><tr><td colspan="2">' . date('d/m/y @ H:m') .  '</td></tr><br>';
-		$unit .= '<tr><td>Sunrise:</td><td>' . date('H:m', $this->$result->sys->sunrise) .  '</td></tr><br>';
-		$unit .= '<tr><td>Sunset:</td><td>' . date('H:m', $this->$result->sys->sunset) .  '</td></tr>';
-		$unit .= '<tr><td class="none"></td></tr>';
-		$unit .= '<tr><td>City:</td><td>' . $this->$result->name.', ' . $this->$result->sys->country . '</td></tr>';
-		$unit .= '<tr><td>Latitude / Longitude</td><td>' . $this->$result->coord->lat . '&deg, ' . $this->$result->coord->lon . '&deg</td></tr>';
-		$unit .= '<tr><td>Description:</td><td>' . $this->$result->weather[0]->description . '</td></tr>';
-		$unit .= '<tr><td class="none"></td></tr>';
-		$unit .= '<tr><td>Temperature:</td><td>' . $this->$result->main->temp . '&deg' . $formatTemp . '</td></tr>';
-		$unit .= '<tr><td>Min Temperature:</td><td>' . $this->$result->main->temp_min . '&deg' . $formatTemp . '</td></tr>';
-		$unit .= '<tr><td>Max Temperature:</td><td>' . $this->$result->main->temp_max . '&deg' . $formatTemp . '</td></tr>';
-		$unit .= '<tr><td class="none"></td></tr>';
-		$unit .= '<tr><td>Humidity:</td><td>' . $this->$result->main->humidity .  '%</td></tr><br>';
-		$unit .= '<tr><td>Wind:</td><td>' . number_format($this->$result->wind->speed, 1) . ' ' . $formatWind . '</td></tr></table><br>';
-
-		return $unit;
-	}*/
+	 * public function getOutput()
+	 * {
+	 * if ($_POST['units'] == 'units=metric') {
+	 * $formatTemp = 'C';
+	 * $formatWind = 'm/s';
+	 * } else {
+	 * $formatTemp = 'F';
+	 * $formatWind = 'mph';
+	 * }
+	 *
+	 * $unit = '<table><tr><td colspan="2">' . date('d/m/y @ H:m') .  '</td></tr><br>';
+	 * $unit .= '<tr><td>Sunrise:</td><td>' . date('H:m', $this->$result->sys->sunrise) .  '</td></tr><br>';
+	 * $unit .= '<tr><td>Sunset:</td><td>' . date('H:m', $this->$result->sys->sunset) .  '</td></tr>';
+	 * $unit .= '<tr><td class="none"></td></tr>';
+	 * $unit .= '<tr><td>City:</td><td>' . $this->$result->name.', ' . $this->$result->sys->country . '</td></tr>';
+	 * $unit .= '<tr><td>Latitude / Longitude</td><td>' . $this->$result->coord->lat . '&deg, ' . $this->$result->coord->lon . '&deg</td></tr>';
+	 * $unit .= '<tr><td>Description:</td><td>' . $this->$result->weather[0]->description . '</td></tr>';
+	 * $unit .= '<tr><td class="none"></td></tr>';
+	 * $unit .= '<tr><td>Temperature:</td><td>' . $this->$result->main->temp . '&deg' . $formatTemp . '</td></tr>';
+	 * $unit .= '<tr><td>Min Temperature:</td><td>' . $this->$result->main->temp_min . '&deg' . $formatTemp . '</td></tr>';
+	 * $unit .= '<tr><td>Max Temperature:</td><td>' . $this->$result->main->temp_max . '&deg' . $formatTemp . '</td></tr>';
+	 * $unit .= '<tr><td class="none"></td></tr>';
+	 * $unit .= '<tr><td>Humidity:</td><td>' . $this->$result->main->humidity .  '%</td></tr><br>';
+	 * $unit .= '<tr><td>Wind:</td><td>' . number_format($this->$result->wind->speed, 1) . ' ' . $formatWind . '</td></tr></table><br>';
+	 *
+	 * return $unit;
+	 * }*/
 
 	/**
 	 * @return    Array
 	 */
 	/**public function mappingOutput()
-	{
-		$mappings = array(
-			'coord' => array(
-				'lat' => 'Longitude'
-			),
-			'main' => array(
-				'temp' => 'Temperature',
-				'temp_min' => 'Min Temperature',
-				'temp_max' => 'Max Temperature',
-				'humidity' => 'Humidity'
-			)
-		);
-
-		$html = '<li>City: '. $this->result->name;
-
-		foreach ($mappings as $section => $mapping) {
-			foreach ($mappings[$section] as $key => $value) {
-				$html .= '<li>'. $value . ': '. $this->result->$section->$key;
-			}
-		}
-		return $html;
-	}*/
+	 * {
+	 * $mappings = array(
+	 * 'coord' => array(
+	 * 'lat' => 'Longitude'
+	 * ),
+	 * 'main' => array(
+	 * 'temp' => 'Temperature',
+	 * 'temp_min' => 'Min Temperature',
+	 * 'temp_max' => 'Max Temperature',
+	 * 'humidity' => 'Humidity'
+	 * )
+	 * );
+	 *
+	 * $html = '<li>City: '. $this->result->name;
+	 *
+	 * foreach ($mappings as $section => $mapping) {
+	 * foreach ($mappings[$section] as $key => $value) {
+	 * $html .= '<li>'. $value . ': '. $this->result->$section->$key;
+	 * }
+	 * }
+	 * return $html;
+	 * }*/
 }
