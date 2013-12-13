@@ -83,7 +83,7 @@
 			<td>City</td>
 			<td><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
 		</tr>
-		<?    $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
+		<? $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
 		$linker = "http://maps.google.com/?q=" . $coords; ?>
 		<tr>
 			<td>Latitude / Longitude</td>
@@ -130,7 +130,7 @@
 <table>
 	<tr>
 		<td>
-			<img href="#info" src="../../resource/images/info.PNG" onclick="$('#info').toggle()" />
+			<a href="#info"><img src="../../resource/images/info.png" onclick="$('#info').toggle()" /></a>
 			<div id="info" style="display:none">
 			Additional you can enter this after the url<br><br>
 			A city has to be a valid city [cityname,country codes]<br>
