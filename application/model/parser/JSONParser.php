@@ -32,6 +32,9 @@ class JSONParser
 {
 
 
+	/**
+	 * @var array
+	 */
 	private $cities = array(
 		"Zurich,ch" => "Zurich",
 		"Johannesburg,za" => "Johannesburg",
@@ -46,24 +49,43 @@ class JSONParser
 	);
 
 
+	/**
+	 * @var array
+	 */
 	private $units = array(
 		"metric" => "Metric",
 		"imperial" => "Imperial",
 	);
 
 
+	/**
+	 * @var string
+	 */
 	private $city = 'Zurich,ch';
 
 
+	/**
+	 * @var string
+	 */
 	private $unit = 'metric';
 
 
+	/**
+	 * @var
+	 */
 	private $result;
 
 
+	/**
+	 * @var
+	 */
 	public $time;
 
 
+	/**
+	 * @param string $city
+	 * @param string $unit
+	 */
 	public function __construct($city = 'Zurich,ch', $unit = 'metric')
 	{
 		$this->setValidCity($city);
@@ -71,6 +93,10 @@ class JSONParser
 	}
 
 
+	/**
+	 * @param $city
+	 * @return int
+	 */
 	protected function isValidCity($city)
 	{
 		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
@@ -78,6 +104,10 @@ class JSONParser
 	}
 
 
+	/**
+	 * @param $unit
+	 * @return int
+	 */
 	protected function isValidUnit($unit)
 	{
 		$pattern = '/^(imperial|metric)$/i';
@@ -107,6 +137,11 @@ class JSONParser
 	}
 
 
+	/**
+	 * @param $city
+	 * @param $unit
+	 * @return string
+	 */
 	private function getUrl($city, $unit)
 	{
 		if (isset($city) && isset($unit)) {
@@ -141,7 +176,6 @@ class JSONParser
 		$result = json_decode($content);
 
 		$time = $time_end - $time_start;
-		print_r('API Speed: ' . number_format($time, 3) . 's');
 		$this->time = $time;
 
 		$this->result = $result;
@@ -149,30 +183,53 @@ class JSONParser
 	}
 
 
+	public function getImage()
+	{
+		$iconUrl = "http://openweathermap.org/img/w/";
+		$iconUrl .= $this->result->weather[0]->icon . ".png";
+		return $iconUrl;
+	}
+
+
+	/**
+	 * @return array
+	 */
 	public function getCityOptions()
 	{
 		return $this->cities;
 	}
 
 
+	/**
+	 * @return string
+	 */
 	public function getSelectedCity()
 	{
 		return $this->city;
 	}
 
 
+	/**
+	 * @return array
+	 */
 	public function getUnitOptions()
 	{
 		return $this->units;
 	}
 
 
+	/**
+	 * @return string
+	 */
 	public function getSelectedUnit()
 	{
 		return $this->unit;
 	}
 
 
+	/**
+	 * @return mixed
+	 */
 	public function getTime()
 	{
 		return $this->time;

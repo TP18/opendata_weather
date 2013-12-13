@@ -20,7 +20,7 @@
 					<label for="city">Select city</label>
 				</td>
 				<td>
-					<select name="city" id="city">
+					<select name="city" id="city" onchange="this.form.submit()">
 						<?php $selectVal = $data['selectedCity'];
 						foreach ($data['cityOptions'] as $cityKey => $cityName) {
 							$selected = ($selectVal === $cityKey) ? ' selected="selected"' : '';?>
@@ -92,7 +92,7 @@
 		<!--<tr><td>Latitude / Longitude</td><td><?= $coords ?></td></tr>-->
 		<tr>
 			<td>Description</td>
-			<td><?= ucwords($data['result']->weather[0]->description) ?></td>
+			<td><img src="<?= $data['icon'] ?>" alt="Weather Icon"><br><?= ucwords($data['result']->weather[0]->description) ?></td>
 		</tr>
 		<tr>
 			<td class="none"></td>

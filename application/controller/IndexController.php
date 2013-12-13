@@ -84,7 +84,8 @@ class IndexController
 			'selectedCity' => $jsonParser->getSelectedCity(),
 			'unitOptions' => $jsonParser->getUnitOptions(),
 			'selectedUnit' => $jsonParser->getSelectedUnit(),
-			'time' => $jsonParser->getTime()
+			'time' => $jsonParser->getTime(),
+			'icon' => $jsonParser->getImage()
 		);
 
 		return include(PATH_VIEW . 'index.php');
