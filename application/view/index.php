@@ -5,6 +5,12 @@
 <head>
 	<script type="text/javascript" src="../../lib/jquery/jquery-1.10.2.min.js"></script>
 	<title>Top 10 Weather Data</title>
+	<script>
+		$(window).resize(function(){
+			var window = $(window).Height();
+			$('.right').css({'height':window});
+		});
+	</script>
 </head>
 <body>
 <div class="content">
