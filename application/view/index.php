@@ -9,6 +9,7 @@
 <body>
 <?= "API Speed: " . number_format($data['time'], 3) . 's'; ?>
 <h1><?= $data['h1'] ?></h1>
+
 <div class="content">
 	<? $selfUrl = $_SERVER['PHP_SELF']; ?>
 	<form action="<?php echo $selfUrl; ?>" method="POST">
@@ -53,7 +54,7 @@
 	</form>
 
 	<?
-	if($data['selectedUnit'] == 'metric') {
+	if ($data['selectedUnit'] == 'metric') {
 		$formatTemp = 'C';
 		$formatWind = 'm/s';
 	} else {
@@ -82,13 +83,13 @@
 			<td>City</td>
 			<td><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
 		</tr>
-		<?php $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
+		<?    $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
 		$linker = "http://maps.google.com/?q=" . $coords; ?>
 		<tr>
 			<td>Latitude / Longitude</td>
 			<td><a target="_blank" href="<?= $linker ?>"><?= $coords ?></a></td>
 		</tr>
-		<!--<tr><td>Latitude / Longitude</td><td><?/**= $coords **/?></td></tr>-->
+		<!--<tr><td>Latitude / Longitude</td><td><?= $coords ?></td></tr>-->
 		<tr>
 			<td>Description</td>
 			<td><?= ucwords($data['result']->weather[0]->description) ?></td>
@@ -129,7 +130,7 @@
 <table>
 	<tr>
 		<td>
-			<img href="#info" src="../../resource/images/info.png" onclick="$('#info').toggle()" />
+			<img href="#info" src="../../resource/images/info.PNG" onclick="$('#info').toggle()" />
 			<div id="info" style="display:none">
 			Additional you can enter this after the url<br><br>
 			A city has to be a valid city [cityname,country codes]<br>

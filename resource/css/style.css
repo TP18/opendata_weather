@@ -13,7 +13,7 @@ table {
 table, td {
 	background: #3f9296;
 	border: 1px solid #44adb1;
-	color:#333333;
+	color: #333333;
 	border-radius: 5px;
 	text-align: center;
 }
@@ -22,7 +22,7 @@ td {
 	padding: 5px 15px 5px 15px;
 }
 
-.none{
+.none {
 	border: none;
 }
 
@@ -60,7 +60,7 @@ a:hover:first-child {
 	text-decoration: none;
 }
 
-#info{
+#info {
 	font-size: 13px;
 	color: #333333;
 }
