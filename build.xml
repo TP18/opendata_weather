@@ -45,12 +45,8 @@
 		<copy todir="${basedir}/build/resource">
 			<fileset dir="${basedir}/resource"></fileset>
 		</copy>
-		<copy file="${basedir}/phpUnitTest/phpunit.xml" todir="${basedir}"/>
 		<copy file="${basedir}/build/phpdox.xml" todir="${basedir}"/>
-		<delete file="${basedir}/phpUnitTest/phpunit.xml"/>
-		<copy todir="${basedir}/build/phpUnitTest">
-			<fileset dir="${basedir}/phpUnitTest"></fileset>
-		</copy>
+
 		<delete dir="${basedir}/build/resource/images"/>
 	</target>
 
