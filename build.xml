@@ -2,7 +2,7 @@
 
 <project name="Jenkins-CI" default="build">
 	<target name="build"
-			depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,phpdox,phpcb,jshint,csslint,phpunit"/>
+			depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,phpdox,phpcb,jshint,csslint"/>
 
 	<target name="build-parallel"
 			depends="prepare,lint,tools-parallel,phpunit"/>
@@ -149,11 +149,6 @@
 	<target name="csslint" description="Run the CSSLint tool on CSS files">
 		<exec executable="csslint" output="${basedir}/build/logs/csslint.xml">
 			<arg line="--format=lint-xml ${basedir}/build/resource/css"/>
-		</exec>
-	</target>
-
-	<target name="phpunit" description="Run unit tests with PHPUnit">
-		<exec executable="phpunit" failonerror="true">
 		</exec>
 	</target>
 
