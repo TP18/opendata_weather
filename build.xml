@@ -5,7 +5,7 @@
 			depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,phpdox,phpcb,jshint,csslint"/>
 
 	<target name="build-parallel"
-			depends="prepare,lint,tools-parallel,phpunit"/>
+			depends="prepare,lint,tools-parallel"/>
 
 	<target name="tools-parallel" description="Run tools in parallel">
 		<parallel threadCount="2">
