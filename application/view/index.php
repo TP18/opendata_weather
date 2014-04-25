@@ -5,16 +5,24 @@
 <head>
 	<script type="text/javascript" src="../../lib/jquery/jquery-1.10.2.min.js"></script>
 	<title>Top 10 Weather Data</title>
+	<script>
+		$(window).resize(function(){
+			var window = $(window).Height();
+			$('.right').css({'height':window});
+		});
+	</script>
 </head>
 <body>
+<div class="content">
+	<div class="left">
 <?= "API Speed: " . number_format($data['time'], 3) . 's'; ?>
 <h1><?= $data['h1'] ?></h1>
 
-<div class="content">
+
 	<? $selfUrl = $_SERVER['PHP_SELF']; ?>
 	<form action="<?php echo $selfUrl; ?>" method="POST">
+		<!--<form action="/index.php" method="POST">-->
 		<table class="styled-select">
-			<!--<form action="/index.php" method="POST">-->
 			<tr>
 				<td>
 					<label for="city">Select city</label>
@@ -144,7 +152,13 @@
 			</td>
 		</tr>
 	</table>
+	</div>
 
+<div class="right">
+	<iframe class="iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+			src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=<?= $data['result']->name ?>
+				&amp;ie=UTF8&amp;t=m&amp;z=11&amp;ll=<?= $data['result']->coord->lat . ',' . $data['result']->coord->lon ?>&amp;output=embed"></iframe>
+</article>
 </div>
 
 </body>
