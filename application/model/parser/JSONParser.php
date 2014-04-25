@@ -19,7 +19,6 @@
  * @author    Thomas Petersen <tpetersen@snowflake.ch>
  *
  */
-
 class JSONParser
 {
 
@@ -28,16 +27,16 @@ class JSONParser
 	 * @var array
 	 */
 	private $cities = array(
-		"Zurich,ch" => "Zurich",
+		"Zurich,ch"       => "Zurich",
 		"Johannesburg,za" => "Johannesburg",
-		"Cape,za" => "Cape Town",
-		"Maputo,mz" => "Maputo",
-		"London,uk" => "London",
-		"Stockholm,se" => "Stockholm",
-		"Ottawa,ca" => "Ottawa",
-		"ny,us" => "New York",
-		"Sydney,au" => "Sydney",
-		"Tokyo,jp" => "Tokyo"
+		"Cape,za"         => "Cape Town",
+		"Maputo,mz"       => "Maputo",
+		"London,uk"       => "London",
+		"Stockholm,se"    => "Stockholm",
+		"Ottawa,ca"       => "Ottawa",
+		"ny,us"           => "New York",
+		"Sydney,au"       => "Sydney",
+		"Tokyo,jp"        => "Tokyo"
 	);
 
 
@@ -45,7 +44,7 @@ class JSONParser
 	 * @var array
 	 */
 	private $units = array(
-		"metric" => "Metric",
+		"metric"   => "Metric",
 		"imperial" => "Imperial",
 	);
 
@@ -69,9 +68,9 @@ class JSONParser
 
 
 	/**
-		 * @var
-		 */
-		public $time;
+	 * @var
+	 */
+	public $time;
 
 
 	/**
