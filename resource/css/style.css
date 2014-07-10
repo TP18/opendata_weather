@@ -5,8 +5,27 @@ body {
 	font-size: 15px;
 }
 
+.content {
+	width: 100%;
+	height: 100%;
+}
+
+.left {
+	float: left;
+	width: 50%;
+	text-align: center;
+	margin: 5px auto;
+}
+
+.right {
+	float: right;
+	width: 50%;
+	text-align: center;
+}
+
 table {
 	min-width: 350px;
+	margin: auto;
 }
 
 table, td {
@@ -62,27 +81,6 @@ a:hover:first-child {
 #info {
 	font-size: 13px;
 	color: #333333;
-}
-
-.right {
-	position: relative;
-	float: right;
-	width: 60%;
-}
-
-.content {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.left {
-	padding: 10px;
-	position: relative;
-	float: left;
-	width: 32%;
 }
 
 .iframe {

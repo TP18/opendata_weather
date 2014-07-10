@@ -1,4 +1,9 @@
 <?php
+namespace Snowflake\OpenData\Controller;
+
+use Snowflake\OpenData\Model\Parser\JSONParser;
+use Snowflake\OpenData\Model\Exceptions;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -15,12 +20,11 @@
  ***************************************************************/
 
 /**
- *
  * @author    Thomas Petersen <tpetersen@snowflake.ch>
  *
+ * Class IndexController
+ * @package   Snowflake\OpenData\Controller
  */
-
-
 class IndexController
 {
 
@@ -31,11 +35,15 @@ class IndexController
 	private $parameters;
 
 
+	/**
+	 * @var
+	 */
 	public $viewData;
 
 
-	//public $exe;
-
+	/**
+	 * @param $parameters
+	 */
 	public function __construct($parameters)
 	{
 		$this->parameters = $parameters;
@@ -47,14 +55,6 @@ class IndexController
 	 */
 	public function indexAction()
 	{
-		/******************************************************************* muss noch angeschaut werden
-		 * foreach ($this->parameters as $parameterValue) {
-		 * var_dump($parameterValue);
-		 * $search = '.';
-		 * $replace = ',';
-		 * str_replace($search, $replace, $parameterValue);
-		 * }
-		 **/
 		strip_tags($this->parameters['city']); //strips all tags
 		htmlentities($this->parameters['city'], ENT_QUOTES);
 		iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $this->parameters['city']);
@@ -63,11 +63,6 @@ class IndexController
 		$jsonData = $jsonParser->readJSONFile();
 
 		new Exceptions($this->parameters['controller'], $this->parameters['action']);
-
-		/**$this->exe = array(
-		 * 'validController' => $validPara->validController($this->parameters),
-		 * 'validAction' => $validPara->validAction($this->parameters)
-		 * );*/
 
 		$this->viewData = array(
 			'h1' => 'Top 10 Weather Data',

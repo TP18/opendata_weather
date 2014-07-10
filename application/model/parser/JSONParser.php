@@ -1,4 +1,7 @@
 <?php
+
+namespace Snowflake\OpenData\Model\Parser;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -15,9 +18,10 @@
  ***************************************************************/
 
 /**
- *
  * @author    Thomas Petersen <tpetersen@snowflake.ch>
  *
+ * Class JSONParser
+ * @package   Snowflake\OpenData\Model\Parser
  */
 class JSONParser
 {
@@ -27,16 +31,16 @@ class JSONParser
 	 * @var array
 	 */
 	private $cities = array(
-		"Zurich,ch"       => "Zurich",
-		"Johannesburg,za" => "Johannesburg",
-		"Cape,za"         => "Cape Town",
-		"Maputo,mz"       => "Maputo",
-		"London,uk"       => "London",
-		"Stockholm,se"    => "Stockholm",
-		"Ottawa,ca"       => "Ottawa",
-		"ny,us"           => "New York",
-		"Sydney,au"       => "Sydney",
-		"Tokyo,jp"        => "Tokyo"
+		'Zurich,ch'       => 'Zurich',
+		'Johannesburg,za' => 'Johannesburg',
+		'Cape,za'         => 'Cape Town',
+		'Maputo,mz'       => 'Maputo',
+		'London,uk'       => 'London',
+		'Stockholm,se'    => 'Stockholm',
+		'Ottawa,ca'       => 'Ottawa',
+		'ny,us'           => 'New York',
+		'Sydney,au'       => 'Sydney',
+		'Tokyo,jp'        => 'Tokyo'
 	);
 
 
@@ -44,8 +48,8 @@ class JSONParser
 	 * @var array
 	 */
 	private $units = array(
-		"metric"   => "Metric",
-		"imperial" => "Imperial",
+		'metric'   => 'Metric',
+		'imperial' => 'Imperial',
 	);
 
 
@@ -85,8 +89,8 @@ class JSONParser
 
 
 	/**
-	 * @param $city
-	 * @return int
+	 * @param	string	$city
+	 * @return	string
 	 */
 	protected function isValidCity($city)
 	{
@@ -96,8 +100,8 @@ class JSONParser
 
 
 	/**
-	 * @param $unit
-	 * @return int
+	 * @param	string	$unit
+	 * @return	string
 	 */
 	protected function isValidUnit($unit)
 	{
@@ -107,7 +111,7 @@ class JSONParser
 
 
 	/**
-	 * @param $city
+	 * @param string $city
 	 */
 	public function setValidCity($city)
 	{
@@ -118,7 +122,7 @@ class JSONParser
 
 
 	/**
-	 * @param $unit
+	 * @param string $unit
 	 */
 	public function setValidUnit($unit)
 	{
@@ -129,9 +133,9 @@ class JSONParser
 
 
 	/**
-	 * @param $city
-	 * @param $unit
-	 * @return string
+	 * @param	string	$city
+	 * @param 	string	$unit
+	 * @return	string
 	 */
 	private function getUrl($city, $unit)
 	{
@@ -149,7 +153,7 @@ class JSONParser
 
 
 	/**
-	 * @return    Array
+	 * @return array
 	 */
 	public function readJSONFile()
 	{
@@ -174,10 +178,13 @@ class JSONParser
 	}
 
 
+	/**
+	 * @return string
+	 */
 	public function getImage()
 	{
-		$iconUrl = "http://openweathermap.org/img/w/";
-		$iconUrl .= $this->result->weather[0]->icon . ".png";
+		$iconUrl = 'http://openweathermap.org/img/w/';
+		$iconUrl .= $this->result->weather[0]->icon . '.png';
 		return $iconUrl;
 	}
 
@@ -225,80 +232,4 @@ class JSONParser
 	{
 		return $this->time;
 	}
-
-	/**
-	 * public function selecter()
-	 * {
-	 * $citypicker = '<form action="/index.php" method="POST">';
-	 * $citypicker .= '<label for="city">Select city: </label>';
-	 * $citypicker .= '<select name="city" id="city">';
-	 * $citypicker .= $this->getCityOptions();
-	 * $citypicker .= '</select>';
-	 * $citypicker .= '    <label for="units">Select unit: </label>';
-	 * $citypicker .= '    <select name="units" id="units">';
-	 * $citypicker .= $this->getUnitOptions();
-	 * $citypicker .= '    </select>';
-	 * $citypicker .= '    <input type="submit" value="Submit"><br>';
-	 * $citypicker .= '</form>';
-	 * return $citypicker;
-	 * }*/
-
-	/**
-	 * @return    Array
-	 */
-	/**
-	 * public function getOutput()
-	 * {
-	 * if ($_POST['units'] == 'units=metric') {
-	 * $formatTemp = 'C';
-	 * $formatWind = 'm/s';
-	 * } else {
-	 * $formatTemp = 'F';
-	 * $formatWind = 'mph';
-	 * }
-	 *
-	 * $unit = '<table><tr><td colspan="2">' . date('d/m/y @ H:m') .  '</td></tr><br>';
-	 * $unit .= '<tr><td>Sunrise:</td><td>' . date('H:m', $this->$result->sys->sunrise) .  '</td></tr><br>';
-	 * $unit .= '<tr><td>Sunset:</td><td>' . date('H:m', $this->$result->sys->sunset) .  '</td></tr>';
-	 * $unit .= '<tr><td class="none"></td></tr>';
-	 * $unit .= '<tr><td>City:</td><td>' . $this->$result->name.', ' . $this->$result->sys->country . '</td></tr>';
-	 * $unit .= '<tr><td>Latitude / Longitude</td><td>' . $this->$result->coord->lat . '&deg, ' . $this->$result->coord->lon . '&deg</td></tr>';
-	 * $unit .= '<tr><td>Description:</td><td>' . $this->$result->weather[0]->description . '</td></tr>';
-	 * $unit .= '<tr><td class="none"></td></tr>';
-	 * $unit .= '<tr><td>Temperature:</td><td>' . $this->$result->main->temp . '&deg' . $formatTemp . '</td></tr>';
-	 * $unit .= '<tr><td>Min Temperature:</td><td>' . $this->$result->main->temp_min . '&deg' . $formatTemp . '</td></tr>';
-	 * $unit .= '<tr><td>Max Temperature:</td><td>' . $this->$result->main->temp_max . '&deg' . $formatTemp . '</td></tr>';
-	 * $unit .= '<tr><td class="none"></td></tr>';
-	 * $unit .= '<tr><td>Humidity:</td><td>' . $this->$result->main->humidity .  '%</td></tr><br>';
-	 * $unit .= '<tr><td>Wind:</td><td>' . number_format($this->$result->wind->speed, 1) . ' ' . $formatWind . '</td></tr></table><br>';
-	 *
-	 * return $unit;
-	 * }*/
-
-	/**
-	 * @return    Array
-	 */
-	/**public function mappingOutput()
-	 * {
-	 * $mappings = array(
-	 * 'coord' => array(
-	 * 'lat' => 'Longitude'
-	 * ),
-	 * 'main' => array(
-	 * 'temp' => 'Temperature',
-	 * 'temp_min' => 'Min Temperature',
-	 * 'temp_max' => 'Max Temperature',
-	 * 'humidity' => 'Humidity'
-	 * )
-	 * );
-	 *
-	 * $html = '<li>City: '. $this->result->name;
-	 *
-	 * foreach ($mappings as $section => $mapping) {
-	 * foreach ($mappings[$section] as $key => $value) {
-	 * $html .= '<li>'. $value . ': '. $this->result->$section->$key;
-	 * }
-	 * }
-	 * return $html;
-	 * }*/
 }

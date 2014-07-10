@@ -1,4 +1,7 @@
 <?php
+
+namespace Snowflake\OpenData\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -15,33 +18,49 @@
  ***************************************************************/
 
 /**
- *
  * @author    Thomas Petersen <tpetersen@snowflake.ch>
  *
+ * Class Exceptions
+ * @package   Snowflake\OpenData\Model
  */
-
 class Exceptions extends \Exception
 {
 
 
+	/**
+	 * @var string
+	 */
 	private $controller = 'index';
 
 
+	/**
+	 * @var array
+	 */
 	private $controllers = array(
 		'index',
 		'test',
 	);
 
 
+	/**
+	 * @var string
+	 */
 	private $action = 'index';
 
 
+	/**
+	 * @var array
+	 */
 	private $actions = array(
 		'index',
 		'test',
 	);
 
 
+	/**
+	 * @param string $controller
+	 * @param string $action
+	 */
 	public function __construct($controller = 'index', $action = 'index')
 	{
 		$this->validController($controller);
@@ -49,6 +68,9 @@ class Exceptions extends \Exception
 	}
 
 
+	/**
+	 * @param string $controller
+	 */
 	public function validController($controller)
 	{
 		//controller
@@ -75,6 +97,9 @@ class Exceptions extends \Exception
 	}
 
 
+	/**
+	 * @param string $action
+	 */
 	public function validAction($action)
 	{
 		//action
@@ -99,28 +124,4 @@ class Exceptions extends \Exception
 			echo 'Caught exception: ', $e->getMessage(), '<br><br>';
 		}
 	}
-
-
-	/**
-	 * public function validAction($action)
-	 * {
-	 *
-	 * $action = 'index';
-	 * if (empty($parameters['action'])) {
-	 * $parameters['action'] = 'index';
-	 * }
-	 *
-	 * if (in_array($parameters['action'], $this->actions)) {
-	 * $action = $parameters['action'];
-	 * }
-	 *
-	 * try {
-	 * if (!in_array($parameters['action'], $this->actions)) {
-	 * $error = 'Not a valid action';
-	 * throw new Exception($error);
-	 * }
-	 * } catch (Exception $e) {
-	 * echo 'Caught exception: ',  $e->getMessage(), '<br><br>';
-	 * }
-	 * }**/
 }
