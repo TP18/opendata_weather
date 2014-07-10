@@ -26,7 +26,7 @@
 		<delete dir="${basedir}/build/logs"/>
 		<delete dir="${basedir}/build/pdepend"/>
 		<delete dir="${basedir}/build/phpdox"/>
-		<!--	because of the config file			<delete dir="${basedir}/build/src"/>-->
+		<delete dir="${basedir}/build/src"/>
 		<delete dir="${basedir}/build/resource"/>
 		<delete dir="${basedir}/build/phpUnitTest"/>
 	</target>
