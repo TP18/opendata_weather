@@ -14,7 +14,7 @@
 			<h1><?= $data['h1'] ?></h1>
 
 
-			<? $selfUrl = $_SERVER['PHP_SELF']; ?>
+			<?php $selfUrl = $_SERVER['PHP_SELF']; ?>
 			<form action="<?php echo $selfUrl; ?>" method="POST">
 				<table>
 					<tr>
@@ -55,7 +55,7 @@
 				</table>
 			</form>
 
-			<?
+			<?php
 			if ($data['selectedUnit'] == 'metric') {
 				$formatTemp = 'C';
 				$formatWind = 'm/s';
@@ -85,7 +85,7 @@
 					<td>City</td>
 					<td><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
 				</tr>
-				<? $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
+				<?php $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
 				$linker = "http://maps.google.com/?q=" . $coords; ?>
 				<tr>
 					<td>Latitude / Longitude</td>

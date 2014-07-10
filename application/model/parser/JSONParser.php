@@ -95,7 +95,7 @@ class JSONParser
 	protected function isValidCity($city)
 	{
 		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
-		return $validCity = preg_match($pattern, $city);
+		return preg_match($pattern, $city);
 	}
 
 
@@ -106,7 +106,7 @@ class JSONParser
 	protected function isValidUnit($unit)
 	{
 		$pattern = '/^(imperial|metric)$/i';
-		return $validUnits = preg_match($pattern, $unit);
+		return preg_match($pattern, $unit);
 	}
 
 
