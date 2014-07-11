@@ -2,6 +2,7 @@
 
 namespace Snowflake\OpenData\Model;
 
+use Exception;
 /***************************************************************
  *  Copyright notice
  *

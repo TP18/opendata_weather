@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<script type="text/javascript" src="../../lib/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<title>Top 10 Weather Data</title>
 </head>
 <body>
@@ -19,7 +18,7 @@
 				<table>
 					<tr>
 						<td>
-							<label for="city">Select city</label>
+							<label for="city"><?= $language['select']['city'] ?></label>
 						</td>
 						<td>
 							<select name="city" id="city" onchange="this.form.submit()">
@@ -34,7 +33,7 @@
 					</tr>
 					<tr>
 						<td>
-							<label for="units">Select unit</label>
+							<label for="units"><?= $language['select']['unit'] ?></label>
 						</td>
 						<td>
 							<select name="units" id="units" onchange="this.form.submit()">
@@ -49,7 +48,7 @@
 					</tr>
 					<tr class="submit">
 						<td colspan="2">
-							<input type="submit" value="Submit" class="submit">
+							<input type="submit" value="<?= $language['submit'] ?>" class="submit">
 						</td>
 					</tr>
 				</table>
@@ -70,11 +69,11 @@
 					<td colspan="2"><?= date('d/m/y @ H:m') ?></td>
 				</tr>
 				<tr>
-					<td>Sunrise</td>
+					<td><?= $language['sunrise'] ?></td>
 					<td><?= date('H:m', $data['result']->sys->sunrise) ?></td>
 				</tr>
 				<tr>
-					<td>Sunset</td>
+					<td><?= $language['sunset'] ?></td>
 					<td><?= date('H:m', $data['result']->sys->sunset) ?></td>
 				</tr>
 				<tr>
@@ -82,18 +81,18 @@
 				</tr>
 
 				<tr>
-					<td>City</td>
+					<td><?= $language['city'] ?></td>
 					<td><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
 				</tr>
 				<?php $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
 				$linker = "http://maps.google.com/?q=" . $coords; ?>
 				<tr>
-					<td>Latitude / Longitude</td>
+					<td><?= $language['lat'] ?></td>
 					<td><a target="_blank" href="<?= $linker ?>"><?= $coords ?></a></td>
 				</tr>
 				<!--<tr><td>Latitude / Longitude</td><td><?= $coords ?></td></tr>-->
 				<tr>
-					<td>Description</td>
+					<td><?= $language['desc'] ?></td>
 					<td><img src="<?= $data['icon'] ?>" alt="Weather Icon"><br><?= ucwords($data['result']->weather[0]->description) ?></td>
 				</tr>
 				<tr>
@@ -102,15 +101,15 @@
 
 
 				<tr>
-					<td>Temperature</td>
+					<td><?= $language['temp'] ?></td>
 					<td><?= number_format($data['result']->main->temp, 2) ?>&deg<?= $formatTemp ?></td>
 				</tr>
 				<tr>
-					<td>Min Temperature</td>
+					<td><?= $language['mintemp'] ?></td>
 					<td><?= number_format($data['result']->main->temp_min, 2) ?>&deg<?= $formatTemp ?></td>
 				</tr>
 				<tr>
-					<td>Max Temperature</td>
+					<td><?= $language['maxtemp'] ?></td>
 					<td><?= number_format($data['result']->main->temp_max, 2) ?>&deg<?= $formatTemp ?></td>
 				</tr>
 				<tr>
@@ -118,12 +117,12 @@
 				</tr>
 
 				<tr>
-					<td>Humidity</td>
+					<td><?= $language['humidity'] ?></td>
 					<td><?= $data['result']->main->humidity ?>%</td>
 				</tr>
 				<br>
 				<tr>
-					<td>Wind</td>
+					<td><?= $language['wind'] ?></td>
 					<td><?= number_format($data['result']->wind->speed, 1) . ' ' . $formatWind ?></td>
 				</tr>
 			</table>
@@ -154,6 +153,9 @@
 				&amp;ie=UTF8&amp;t=m&amp;z=11&amp;ll=<?= $data['result']->coord->lat . ',' . $data['result']->coord->lon ?>&amp;output=embed"></iframe>
 		</article>
 	</div>
+</div>
+<div class="footer">
+	<p>Developed by Thomas Petersen</p>
 </div>
 </body>
 </html>

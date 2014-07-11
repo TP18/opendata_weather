@@ -1,14 +1,23 @@
 .left {
-	float: left;
+	float: none;
 	width: 100%;
-	margin: 0;
+	margin: 30px auto;
 }
 
 .right {
 	float: none;
-	width: 80%;
-	margin: 30px auto;
-	text-align: center;
+	width: 90%;
+	margin: auto;
+	/*text-align: center;*/
+	padding-bottom: 20px;
+}
+
+.footer {
+	display: none;
+}
+
+table {
+	min-width: 0;
 }
 
 table.config {

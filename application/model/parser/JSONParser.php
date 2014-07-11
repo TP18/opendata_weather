@@ -2,6 +2,8 @@
 
 namespace Snowflake\OpenData\Model\Parser;
 
+use Exception;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -54,6 +56,14 @@ class JSONParser
 
 
 	/**
+	 * @var array
+	 */
+	private $supportedLanguages = array(
+		'en', 'ru', 'it', 'es', 'uk', 'de', 'pt', 'ro', 'pl', 'fi', 'nl', 'fr', 'bg', 'sv', 'zh_tw', 'zh', 'tr'
+	);
+
+
+	/**
 	 * @var string
 	 */
 	private $city = 'Zurich,ch';
@@ -63,6 +73,12 @@ class JSONParser
 	 * @var string
 	 */
 	private $unit = 'metric';
+
+
+	/**
+	 * @var string
+	 */
+	private $lang = 'en';
 
 
 	/**
@@ -80,11 +96,13 @@ class JSONParser
 	/**
 	 * @param string $city
 	 * @param string $unit
+	 * @param string $lang
 	 */
-	public function __construct($city = 'Zurich,ch', $unit = 'metric')
+	public function __construct($city, $unit, $lang)
 	{
 		$this->setValidCity($city);
 		$this->setValidUnit($unit);
+		$this->setValidLanguage($lang);
 	}
 
 
@@ -95,7 +113,17 @@ class JSONParser
 	protected function isValidCity($city)
 	{
 		$pattern = '/^[A-Z]+[\,]{1}[A-Z]{2}$/i';
-		return preg_match($pattern, $city);
+
+		if (preg_match($pattern, $city) === 1) {
+			$content = file_get_contents('http://api.openweathermap.org/data/2.5/weather?q='.  $city);
+			$content = json_decode($content);
+			if ($content->cod === '404') {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return $city;
 	}
 
 
@@ -107,6 +135,24 @@ class JSONParser
 	{
 		$pattern = '/^(imperial|metric)$/i';
 		return preg_match($pattern, $unit);
+	}
+
+
+	/**
+	 * @param	string	$lang
+	 * @return	string
+	 */
+	protected function isValidLanguage($lang)
+	{
+		$lang = 'de';
+		if (!isset($lang)) {
+			$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+		}
+
+		if (in_array($lang, $this->supportedLanguages)) {
+			return $lang;
+		}
+		return 'en';
 	}
 
 
@@ -133,19 +179,30 @@ class JSONParser
 
 
 	/**
+	 * @param string $lang
+	 */
+	public function setValidLanguage($lang)
+	{
+		$this->lang = $this->isValidLanguage($lang);
+	}
+
+
+	/**
 	 * @param	string	$city
 	 * @param 	string	$unit
+	 * @param 	string	$lang
 	 * @return	string
 	 */
-	private function getUrl($city, $unit)
+	private function getUrl($city, $unit, $lang)
 	{
+
 		if (isset($city) && isset($unit)) {
 			$url = 'http://api.openweathermap.org/data/2.5/weather?q=';
 			$url .= $city . '&units=';
-			$url .= $unit;
+			$url .= $unit . '&lang=';
+			$url .= $lang;
 		} else {
-			$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric';
-			//?city=Munich,de&units=imperials
+			$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric&lang=en';
 		}
 
 		return $url;
@@ -158,7 +215,7 @@ class JSONParser
 	public function readJSONFile()
 	{
 		$time_start = microtime(true);
-		$content = file_get_contents($this->getUrl($this->city, $this->unit));
+		$content = file_get_contents($this->getUrl($this->city, $this->unit, $this->lang));
 		$time_end = microtime(true);
 		try {
 			if ($content == false) { // hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
@@ -231,5 +288,14 @@ class JSONParser
 	public function getTime()
 	{
 		return $this->time;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLanguage()
+	{
+		return $this->lang;
 	}
 }

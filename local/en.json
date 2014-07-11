@@ -1,0 +1,17 @@
+{
+	"select": {
+		"city": "Select city",
+		"unit": "Select unit"
+	},
+	"submit": "Check weather",
+	"sunrise": "Sunrise",
+	"sunset": "Sunset",
+	"city": "City",
+	"lat": "Latitude / Longitude",
+	"desc": "Description",
+	"temp": "Temperature",
+	"mintemp": "Min Temperature",
+	"maxtemp": "Max Temperature",
+	"humidity": "Humidity",
+	"wind": "Wind"
+}

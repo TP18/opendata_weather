@@ -1,0 +1,17 @@
+{
+	"select": {
+		"city": "Stadt auswählen",
+		"unit": "Einheit auswählen"
+	},
+	"submit": "Wetter anzeigen",
+	"sunrise": "Sonnenaufgang",
+	"sunset": "Sonnenuntergang",
+	"city": "Stadt",
+	"lat": "Latitude / Longitude",
+	"desc": "Beschreibung",
+	"temp": "Temperature",
+	"mintemp": "Min Temperature",
+	"maxtemp": "Max Temperature",
+	"humidity": "Luftfeuchtigkeit",
+	"wind": "Wind"
+}

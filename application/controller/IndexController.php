@@ -59,14 +59,28 @@ class IndexController
 		htmlentities($this->parameters['city'], ENT_QUOTES);
 		iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $this->parameters['city']);
 
-		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units']);
+		$jsonParser = new JSONParser($this->parameters['city'], $this->parameters['units'], $this->parameters['lang']);
 		$jsonData = $jsonParser->readJSONFile();
+		$lang = $jsonParser->getLanguage();
 
+		switch ($lang) {
+			case 'de':
+				$language = file_get_contents('./local/de.json');
+				break;
+			case 'fr':
+				$language = file_get_contents('./local/fr.json');
+				break;
+			default:
+				$language = file_get_contents('./local/en.json');
+		}
+
+		$language = json_decode($language, true);
 		new Exceptions($this->parameters['controller'], $this->parameters['action']);
 
 		$this->viewData = array(
 			'h1' => 'Top 10 Weather Data',
 			'result' => $jsonData,
+			'language' => $language,
 			'cityOptions' => $jsonParser->getCityOptions(),
 			'selectedCity' => $jsonParser->getSelectedCity(),
 			'unitOptions' => $jsonParser->getUnitOptions(),
@@ -75,6 +89,6 @@ class IndexController
 			'icon' => $jsonParser->getImage()
 		);
 
-		return include(PATH_VIEW . 'index.php');
+		return include(PATH_VIEW . 'index.phtml');
 	}
 }

@@ -23,6 +23,15 @@ body {
 	text-align: center;
 }
 
+.footer {
+	width: 100%;
+	text-align: center;
+	padding-bottom: 20px;
+	height: 20px;
+	line-height: 20px;
+	bottom: 0;
+}
+
 table {
 	min-width: 350px;
 	margin: auto;
