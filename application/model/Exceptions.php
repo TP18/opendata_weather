@@ -1,28 +1,14 @@
 <?php
 
-namespace Snowflake\OpenData\Model;
+namespace TPetersen\OpenData\Model;
 
 use Exception;
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2013 snowflake productions gmbh <support@snowflake.ch>
- *  All rights reserved
- *
- *  The project is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- ***************************************************************/
 
 /**
- * @author    Thomas Petersen <tpetersen@snowflake.ch>
+ * @author    Thomas Petersen
  *
  * Class Exceptions
- * @package   Snowflake\OpenData\Model
+ * @package   TPetersen\OpenData\Model
  */
 class Exceptions extends \Exception
 {

@@ -4,7 +4,7 @@
 <!--<link rel="stylesheet" media="screen and (device-aspect-ratio: 40/71) " type="text/css" href="resource/css/mobile.css"/>-->
 <?php
 
-use Snowflake\OpenData\Controller\IndexController;
+use TPetersen\OpenData\Controller\IndexController;
 
 /**
  * time array /  http://p2511-141-opendata.thpe.rz.snowflake.ch/index.php?controller=blabla&action=index1
@@ -16,7 +16,7 @@ $parameters = array_merge($_GET, $_POST);
 $controller = 'index';
 $action = 'index';
 
-$controllerClassName = 'Snowflake\\OpenData\\Controller\\' . ucfirst($controller) . 'Controller'; //IndexController
+$controllerClassName = 'TPetersen\\OpenData\\Controller\\' . ucfirst($controller) . 'Controller'; //IndexController
 
 $controllerClass = new $controllerClassName($parameters);
 

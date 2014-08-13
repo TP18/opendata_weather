@@ -1,1 +1,17 @@
-<?php
+{
+	"select": {
+		"city": "Choisir la ville",
+		"unit": "Choisir l'unité"
+	},
+	"submit": "Obtenir la météo",
+	"sunrise": "lever du soleil",
+	"sunset": "Coucher de soleil",
+	"city": "Ville",
+	"lat": "Latitude / Longitude",
+	"desc": "Description",
+	"temp": "Température",
+	"mintemp": "Température Min",
+	"maxtemp": "Température max",
+	"humidity": "Humidité",
+	"wind": "Vent"
+}

@@ -1,29 +1,14 @@
 <?php
-namespace Snowflake\OpenData\Controller;
+namespace TPetersen\OpenData\Controller;
 
-use Snowflake\OpenData\Model\Parser\JSONParser;
-use Snowflake\OpenData\Model\Exceptions;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2013 snowflake productions gmbh <support@snowflake.ch>
- *  All rights reserved
- *
- *  The project is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- ***************************************************************/
+use TPetersen\OpenData\Model\Parser\JSONParser;
+use TPetersen\OpenData\Model\Exceptions;
 
 /**
- * @author    Thomas Petersen <tpetersen@snowflake.ch>
+ * @author    Thomas Petersen
  *
  * Class IndexController
- * @package   Snowflake\OpenData\Controller
+ * @package   TPetersen\OpenData\Controller
  */
 class IndexController
 {
