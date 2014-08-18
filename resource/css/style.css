@@ -1,3 +1,7 @@
+html, body {
+	height: 99%
+}
+
 body {
 	color: #000;
 	background: #ABAB9A;
@@ -11,25 +15,34 @@ body {
 }
 
 .left {
-	float: left;
+	height: 99%;
 	width: 50%;
+	float: left;
 	text-align: center;
-	margin: 5px auto;
 }
 
 .right {
-	float: right;
+	height: 99%;
 	width: 50%;
+	float: right;
 	text-align: center;
 }
 
-.footer {
-	width: 100%;
+footer {
+	position: absolute;
+	bottom: 0;
+	height: 20px;
+	width: 80%;
+	background-color: pink;
 	text-align: center;
 	padding-bottom: 20px;
-	height: 20px;
 	line-height: 20px;
-	bottom: 0;
+}
+
+.iframe {
+	min-width: 100px;
+	width: 100%;
+	height: 100%;
 }
 
 table {
@@ -49,6 +62,10 @@ td {
 	padding: 5px 15px 5px 15px;
 }
 
+table.config {
+	margin-bottom: 5px;
+}
+
 .none {
 	border: none;
 }
@@ -62,7 +79,7 @@ select {
 	font-size: 15px;
 }
 
-.submit {
+.weatherButton {
 	background: #ccc;
 	border: 1px solid #44adb1;
 	border-radius: 5px;
@@ -71,10 +88,15 @@ select {
 	font-size: 15px;
 }
 
-.submit:hover {
+.weatherButton:hover {
 	background: #3f9296;
 	border: 1px solid #44adb1;
 	color: #ccc;
+}
+
+#forecastedWeather {
+	color: #000000;
+	line-height: 33px;
 }
 
 a {
@@ -92,8 +114,39 @@ a:hover:first-child {
 	color: #333333;
 }
 
-.iframe {
-	width: 100%;
-	height: 100%;
-	min-width: 100px;
+#city_title {
+	font-size: 20px;
+}
+
+.empty {
+	margin-top: 8px;
+}
+
+@media (max-height: 744px) and (max-width: 1200px) and (min-width: 1040px) {
+	.left {
+		width: 70%;
+		margin-right: 5px;
+	}
+
+	.right {
+		width: 28%;
+	}
+
+	table.weatherSelect {
+		margin: auto;
+		float: left;
+	}
+
+	table.weatherInfo {
+		margin: auto;
+		float: right;
+	}
+
+
+	table.config {
+		margin: auto;
+		float: left;
+		margin-top: 10px;
+	}
+
 }

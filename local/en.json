@@ -3,7 +3,8 @@
 		"city": "Select city",
 		"unit": "Select unit"
 	},
-	"submit": "Check Weather",
+	"currentWeather": "Check current Weather",
+	"forecastedWeather": "Check Weather forecast",
 	"sunrise": "Sunrise",
 	"sunset": "Sunset",
 	"city": "City",

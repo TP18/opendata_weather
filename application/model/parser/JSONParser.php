@@ -177,7 +177,7 @@ class JSONParser
 	 * @param 	string	$lang
 	 * @return	string
 	 */
-	private function getUrl($city, $unit, $lang)
+	private function getUrl($url, $city, $unit, $lang)
 	{
 
 		if (isset($city) && isset($unit)) {
@@ -196,10 +196,79 @@ class JSONParser
 	/**
 	 * @return array
 	 */
-	public function readJSONFile()
+	public function getCurrentWeather()
+	{
+		if (isset($this->city) && isset($this->unit)) {
+			$url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+			$url .= $this->city . '&units=';
+			$url .= $this->unit . '&lang=';
+			$url .= $this->lang;
+		} else {
+			$url = 'http://api.openweathermap.org/data/2.5/weather?q=Zurich,ch&units=metric&lang=en';
+		}
+
+		$this->result = $this->decodeJSONData($this->readJSONFile($url));
+		return $this->result;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getForecastWeather()
+	{
+		if (isset($this->city) && isset($this->unit)) {
+			$url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=';
+			$url .= $this->city . '&units=';
+			$url .= $this->unit . '&lang=';
+			$url .= $this->lang . '&cnt=15';
+		} else {
+			$url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Zurich,ch&units=metric&lang=en&cnt=15';
+		}
+
+		$response = $this->decodeJSONData($this->readJSONFile($url), true);
+
+		foreach ($response['list'] as $singleDay) {
+			$weatherData['date'][] = date("d.m.y", $singleDay['dt']);
+			$weatherData['temp'][] = $singleDay['temp']['day'];
+			if ($singleDay['rain'] != null) {
+				$weatherData['rain'][] = $singleDay['rain'];
+			} else {
+				$weatherData['rain'][] = 0;
+			}
+		}
+
+		$weatherData['cityName'] = $response['city']['name'];
+		$weatherData['date'] = json_encode($weatherData['date'], JSON_HEX_TAG);
+		$weatherData['temp'] = json_encode($weatherData['temp'], JSON_HEX_TAG);
+		$weatherData['rain'] = json_encode($weatherData['rain'], JSON_HEX_TAG);
+		return $weatherData;
+//		return $this->result;
+	}
+
+
+	/**
+	 * @param      $data
+	 * @param bool $returnArray
+	 * @return mixed
+	 */
+	public function decodeJSONData($data, $returnArray = false)
+	{
+		if ($returnArray) {
+			return json_decode($data, true);
+		}
+		return json_decode($data);
+	}
+
+
+	/**
+	 * @param $url
+	 * @return mixed
+	 */
+	public function readJSONFile($url)
 	{
 		$time_start = microtime(true);
-		$content = file_get_contents($this->getUrl($this->city, $this->unit, $this->lang));
+		$content = file_get_contents($url);
 		$time_end = microtime(true);
 		try {
 			if ($content == false) { // hier muss $parameters['controller'] stehen. $contoller macht keinen Sinn
@@ -214,8 +283,7 @@ class JSONParser
 		$time = $time_end - $time_start;
 		$this->time = $time;
 
-		$this->result = $result;
-		return $result;
+		return $content;
 	}
 
 

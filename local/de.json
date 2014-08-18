@@ -3,7 +3,8 @@
 		"city": "Stadt auswählen",
 		"unit": "Einheit auswählen"
 	},
-	"submit": "Wetter anzeigen",
+	"currentWeather": "Aktuelles Wetter anzeigen",
+	"forecastedWeather": "Wettervorhersage anzeigen",
 	"sunrise": "Sonnenaufgang",
 	"sunset": "Sonnenuntergang",
 	"city": "Stadt",

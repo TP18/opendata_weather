@@ -6,6 +6,8 @@ ini_set('display_errors', 1);
 
 
 require_once('constants.php');
+require_once($baseDir . '/../model/exception/InvalidControllerOrActionException.php');
 require_once($baseDir . '/../model/parser/JSONParser.php');
+require_once($baseDir . '/../model/validator/ControllerActionValidator.php');
 require_once($baseDir . '/../controller/IndexController.php');
 require_once($baseDir . '/../model/Exceptions.php');

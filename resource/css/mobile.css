@@ -1,19 +1,17 @@
 .left {
 	float: none;
 	width: 100%;
-	margin: 30px auto;
+	margin: 40px auto;
+	padding-bottom: 30px;
 }
 
 .right {
+	position: absolute;
 	float: none;
 	width: 90%;
 	margin: auto;
-	/*text-align: center;*/
+	text-align: center;
 	padding-bottom: 20px;
-}
-
-.footer {
-	display: none;
 }
 
 table {

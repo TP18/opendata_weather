@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project basedir="../path/" name="BetaBacon" default="build">
+<project basedir="../path/" name="OpenData" default="build">
 	<target name="build"
 			depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,phpdox,phpunit,phpcb,jshint,csslint"/>
 

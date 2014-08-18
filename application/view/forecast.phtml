@@ -1,0 +1,63 @@
+<?php $data = $this->viewData ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="refresh" content="3600">
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet"  type="text/css" href="resource/css/style.css"/>
+	<link rel="stylesheet" media="only screen and (max-width: 750px)" type="text/css" href="resource/css/mobile.css"/>
+	<link rel=icon href=resource/images/favicon.png type="image/png">
+	<!--<link rel="stylesheet" media="screen and (device-aspect-ratio: 40/71) " type="text/css" href="resource/css/mobile.css"/>-->
+
+	<script type="text/javascript" src="../../lib/jquery/jquery-2.1.1.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="../../resource/js/Opendata.js"></script>
+	<script src="../../resource/js/Opendata.Diagrams.js"></script>
+	<title>Top 10 Weather Data</title>
+</head>
+<body>
+	<div class="content">
+				<?= "API Speed: " . number_format($data['time'], 3) . 's'; ?>
+
+			<table class="weatherSelect">
+				<form action="http://p2511-141-opendata.thpe.rz.snowflake.ch/?controller=index&action=forecast" method="post">
+					<tr>
+						<td>
+							<label for="city"><?= $language['select']['city'] ?></label>
+						</td>
+						<td>
+							<select name="city" id="city" onchange="this.form.submit()">
+								<?php $selectVal = $data['selectedCity'];
+								foreach ($data['cityOptions'] as $cityKey => $cityName) {
+									$selected = ($selectVal === $cityKey) ? ' selected="selected"' : '';?>
+									<option value="<?= $cityKey ?>" <?= $selected ?>><?= $cityName ?></option>
+								<?php
+								} ?>
+							</select>
+						</td>
+					</tr>
+					<tr class="weatherButton">
+						<td colspan="2">
+							<input class="weatherButton" type="submit" value="<?= $language['forecastedWeather'] ?>">
+						</td>
+					</tr>
+				</form>
+					<tr>
+						<td colspan="2">
+							<a class="weatherButton" id="forecastedWeather" href="http://p2511-141-opendata.thpe.rz.snowflake.ch"><?= $language['currentWeather'] ?></a>
+						</td>
+					</tr>
+			</table>
+		<div class="empty"></div>
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>
+</body>
+</html>
+<script>
+	Opendata.Diagrams.date = <?= $jsonData['date'] ?>,
+	Opendata.Diagrams.temp = <?= $jsonData['temp'] ?>,
+	Opendata.Diagrams.rain = <?= $jsonData['rain'] ?>,
+	Opendata.Diagrams.rain = <?= $jsonData['rain'] ?>,
+	Opendata.Diagrams.cityName = "<?= $jsonData['cityName'] ?>"
+</script>

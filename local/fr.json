@@ -3,7 +3,8 @@
 		"city": "Choisir la ville",
 		"unit": "Choisir l'unité"
 	},
-	"submit": "Obtenir la météo",
+	"currentWeather": "Obtenir la météo",
+	"forecastedWeather": "Obtenir Prévisions météo",
 	"sunrise": "lever du soleil",
 	"sunset": "Coucher de soleil",
 	"city": "Ville",

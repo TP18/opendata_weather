@@ -1,0 +1,44 @@
+<table class="weatherSelect">
+	<form action="<?php echo $selfUrl; ?>" method="get">
+		<tr>
+			<td>
+				<label for="city"><?= $language['select']['city'] ?></label>
+			</td>
+			<td>
+				<select name="city" id="city" onchange="this.form.submit()">
+					<?php $selectVal = $data['selectedCity'];
+					foreach ($data['cityOptions'] as $cityKey => $cityName) {
+						$selected = ($selectVal === $cityKey) ? ' selected="selected"' : '';?>
+						<option value="<?= $cityKey ?>" <?= $selected ?>><?= $cityName ?></option>
+					<?php
+					} ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="units"><?= $language['select']['unit'] ?></label>
+			</td>
+			<td>
+				<select name="units" id="units" onchange="this.form.submit()">
+					<?php $selectVal = $data['selectedUnit'];
+					foreach ($data['unitOptions'] as $unitKey => $unitName) {
+						$selected = ($selectVal === $unitKey) ? ' selected="selected"' : '';?>
+						<option value="<?= $unitKey ?>" <?= $selected ?>><?= $unitName ?></option>
+					<?php
+					} ?>
+				</select>
+			</td>
+		</tr>
+		<tr class="weatherButton">
+			<td colspan="2">
+				<input type="submit" value="<?= $language['currentWeather'] ?>" class="weatherButton">
+			</td>
+		</tr>
+	</form>
+		<tr>
+			<td colspan="2">
+				<a class="weatherButton" id="forecastedWeather" href="/?controller=index&action=forecast"><?= $language['forecastedWeather'] ?></a>
+			</td>
+		</tr>
+</table>

@@ -40,7 +40,7 @@ class Exceptions extends \Exception
 	 */
 	private $actions = array(
 		'index',
-		'test',
+		'forecast',
 	);
 
 

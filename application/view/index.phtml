@@ -3,7 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<meta http-equiv="refresh" content="3600">
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet"  type="text/css" href="resource/css/style.css"/>
+	<link rel="stylesheet" media="only screen and (max-width: 800px)" type="text/css" href="resource/css/mobile.css"/>
+	<link rel=icon href=resource/images/favicon.png type="image/png">
+	<!--<link rel="stylesheet" media="screen and (device-aspect-ratio: 40/71) " type="text/css" href="resource/css/mobile.css"/>-->
+
+	<script type="text/javascript" src="../../lib/jquery/jquery-2.1.1.min.js"></script>
 	<title>Top 10 Weather Data</title>
 </head>
 <body>
@@ -13,48 +20,10 @@
 			<h1><?= $data['h1'] ?></h1>
 
 
-			<?php $selfUrl = $_SERVER['PHP_SELF']; ?>
-			<form action="<?php echo $selfUrl; ?>" method="POST">
-				<table>
-					<tr>
-						<td>
-							<label for="city"><?= $language['select']['city'] ?></label>
-						</td>
-						<td>
-							<select name="city" id="city" onchange="this.form.submit()">
-								<?php $selectVal = $data['selectedCity'];
-								foreach ($data['cityOptions'] as $cityKey => $cityName) {
-									$selected = ($selectVal === $cityKey) ? ' selected="selected"' : '';?>
-									<option value="<?= $cityKey ?>" <?= $selected ?>><?= $cityName ?></option>
-								<?php
-								} ?>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="units"><?= $language['select']['unit'] ?></label>
-						</td>
-						<td>
-							<select name="units" id="units" onchange="this.form.submit()">
-								<?php $selectVal = $data['selectedUnit'];
-								foreach ($data['unitOptions'] as $unitKey => $unitName) {
-									$selected = ($selectVal === $unitKey) ? ' selected="selected"' : '';?>
-									<option value="<?= $unitKey ?>" <?= $selected ?>><?= $unitName ?></option>
-								<?php
-								} ?>
-							</select>
-						</td>
-					</tr>
-					<tr class="submit">
-						<td colspan="2">
-							<input type="submit" value="<?= $language['submit'] ?>" class="submit">
-						</td>
-					</tr>
-				</table>
-			</form>
+			<?php $selfUrl = $_SERVER['PHP_SELF'];
 
-			<?php
+			include('selectTable.phtml');
+
 			if ($data['selectedUnit'] == 'metric') {
 				$formatTemp = 'C';
 				$formatWind = 'm/s';
@@ -63,8 +32,25 @@
 				$formatWind = 'mph';
 			}
 			?>
+			<div class="empty"></div>
+			<table class="weatherInfo">
+				<tr>
+<!--					<td>--><?//= $language['city'] ?><!--</td>-->
+					<td colspan="2" id="city_title"><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
+				</tr>
+				<?php $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
+				$linker = "http://maps.google.com/?q=" . $coords; ?>
+				<tr>
+					<td><?= $language['lat'] ?></td>
+					<td><a target="_blank" href="<?= $linker ?>"><?= $coords ?></a></td>
+				</tr>
+				<tr>
+					<td colspan="2"><img src="<?= $data['icon'] ?>" alt="Weather Icon"><br><?= ucwords($data['result']->weather[0]->description) ?></td>
+				</tr>
 
-			<table>
+				<tr>
+					<td class="none"></td>
+				</tr>
 				<tr>
 					<td colspan="2"><?= date('d/m/y @ H:m') ?></td>
 				</tr>
@@ -79,27 +65,6 @@
 				<tr>
 					<td class="none"></td>
 				</tr>
-
-				<tr>
-					<td><?= $language['city'] ?></td>
-					<td><?= $data['result']->name . ', ' . $data['result']->sys->country ?></td>
-				</tr>
-				<?php $coords = $data['result']->coord->lat . '&deg, ' . $data['result']->coord->lon . '&deg';
-				$linker = "http://maps.google.com/?q=" . $coords; ?>
-				<tr>
-					<td><?= $language['lat'] ?></td>
-					<td><a target="_blank" href="<?= $linker ?>"><?= $coords ?></a></td>
-				</tr>
-				<!--<tr><td>Latitude / Longitude</td><td><?= $coords ?></td></tr>-->
-				<tr>
-					<td><?= $language['desc'] ?></td>
-					<td><img src="<?= $data['icon'] ?>" alt="Weather Icon"><br><?= ucwords($data['result']->weather[0]->description) ?></td>
-				</tr>
-				<tr>
-					<td class="none"></td>
-				</tr>
-
-
 				<tr>
 					<td><?= $language['temp'] ?></td>
 					<td><?= number_format($data['result']->main->temp, 2) ?>&deg<?= $formatTemp ?></td>
@@ -120,13 +85,12 @@
 					<td><?= $language['humidity'] ?></td>
 					<td><?= $data['result']->main->humidity ?>%</td>
 				</tr>
-				<br>
 				<tr>
 					<td><?= $language['wind'] ?></td>
 					<td><?= number_format($data['result']->wind->speed, 1) . ' ' . $formatWind ?></td>
 				</tr>
 			</table>
-			<br>
+			<div class="empty"></div>
 
 			<table class="config">
 				<tr>
@@ -145,17 +109,15 @@
 					</td>
 				</tr>
 			</table>
+		<br>
 	</div>
 
 	<div class="right">
 		<iframe class="iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-				src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=<?= $data['result']->name ?>
-				&amp;ie=UTF8&amp;t=m&amp;z=11&amp;ll=<?= $data['result']->coord->lat . ',' . $data['result']->coord->lon ?>&amp;output=embed"></iframe>
-		</article>
+		src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=<?= $data['result']->name ?>
+		&amp;ie=UTF8&amp;t=m&amp;z=11&amp;ll=<?= $data['result']->coord->lat . ',' . $data['result']->coord->lon ?>&amp;output=embed"></iframe>
 	</div>
 </div>
-<div class="footer">
-	<p>Developed by Thomas Petersen</p>
-</div>
+
 </body>
 </html>
